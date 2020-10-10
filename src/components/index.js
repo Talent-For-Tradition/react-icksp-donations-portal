@@ -1,3 +1,4 @@
 import TitleText from "./TitleText";
-
-export { TitleText }
+import BodyText from "./BodyText";
+import PrayerCard from "./PrayerCard";
+export { TitleText, BodyText, PrayerCard }
