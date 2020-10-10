@@ -1,0 +1,17 @@
+.BodyText {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  padding-left: calc(12 * 1vmin);
+  padding-right: calc(12 * 1vmin);
+  height: auto;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.BodyText p {
+  margin: 2vmin;
+  /* placeholder Google font imported from index.html */
+  font-family: 'Open Sans', serif;
+  font-size: calc(10px + 1vmin);
+}
