@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { TitleText, BodyText, Button } from "./index";
 import "./formStyle.css";
 import StatesList from "./statesList";
-
+import schema from "./AddressSchema";
 function StateToOption({ name, abbreviation, key }) {
   return (
     <option key={key} value={abbreviation}>
@@ -12,8 +12,9 @@ function StateToOption({ name, abbreviation, key }) {
   );
 }
 
-const AddressForm = () => {
+const AddressForm = ({ handleSubmit }) => {
   const history = useHistory();
+  const ref = useRef(null);
   const [state, setState] = useState({
     fullname: "",
     country: "",
@@ -36,13 +37,24 @@ const AddressForm = () => {
     e.preventDefault();
     setState({ ...state, state: e.target.value });
   };
+  const handleVerify = () => {
+    // verify state and send to callback
+    const { error, value } = schema.validate(state);
+    error ? console.log(error) : history.push("/"); // replace with call to API
+    console.log(value);
+  };
   return (
     <div className="AddressForm">
       <TitleText>
         WHERE SHOULD WE SEND YOUR FREE MEMORARE PRAYER CARDS?
       </TitleText>
       <BodyText>
-        <form className="BodyTextForm" onSubmit={() => history.push("/")}>
+        <form
+          ref={ref}
+          id="addressForm"
+          className="BodyTextForm"
+          onSubmit={() => handleVerify()}
+        >
           <input
             className="FormInput"
             placeholder="John Smith"
@@ -122,7 +134,7 @@ const AddressForm = () => {
             value={state.email}
             onChange={handleChange}
           />
-          <Button text="SUBMIT" handleClick={() => console.log(state)} />
+          <Button text="SUBMIT" type="button" handleClick={handleVerify} />
         </form>
       </BodyText>
     </div>
