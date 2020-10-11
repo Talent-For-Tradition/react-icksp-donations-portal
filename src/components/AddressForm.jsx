@@ -1,15 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { TitleText, BodyText, Button } from "./index";
 import "./formStyle.css";
 import StatesList from "./statesList";
 
 function StateToOption({ name, abbreviation, key }) {
-  return <option key={key} value={abbreviation}>{name}</option>;
+  return (
+    <option key={key} value={abbreviation}>
+      {name}
+    </option>
+  );
 }
 
 const AddressForm = () => {
   const history = useHistory();
+  const [state, setState] = useState({
+    fullname: "",
+    country: "",
+    addr1: "",
+    addr2: "",
+    city: "",
+    zip: "",
+    state: "",
+    email: ""
+  });
+  const handleChange = (e) => {
+    e.preventDefault();
+    setState({ ...state, [e.target.name]: e.target.value });
+  };
+  const handleChangeCountry = (e) => {
+    e.preventDefault();
+    setState({ ...state, country: e.target.value });
+  };
+  const handleChangeState = (e) => {
+    e.preventDefault();
+    setState({ ...state, state: e.target.value });
+  };
   return (
     <div className="AddressForm">
       <TitleText>
@@ -22,22 +48,35 @@ const AddressForm = () => {
             placeholder="John Smith"
             name="fullname"
             id="fullname"
+            value={state.fullname}
+            onChange={handleChange}
           />
-          <select className="FormSelect" id="country">
+          <select
+            className="FormSelect"
+            id="country"
+            name="country"
+            onChange={handleChangeCountry}
+          >
             <option value={0}>Select Country</option>
-            <option value="US">United States of America</option>
+            <option name="country" value="US">
+              United States of America
+            </option>
           </select>
           <input
             className="FormInput"
             placeholder="Address Line 1"
             name="addr1"
             id="addr1"
+            value={state.addr1}
+            onChange={handleChange}
           />
           <input
             className="FormInput"
             placeholder="Address Line 2"
             name="addr2"
             id="addr2"
+            value={state.addr2}
+            onChange={handleChange}
           />
           <div
             style={{
@@ -47,10 +86,29 @@ const AddressForm = () => {
               alignItems: "center"
             }}
           >
-            <input className="FormHalf" placeholder="City" />
-            <input className="FormHalf" placeholder="Zip" />
+            <input
+              className="FormHalf"
+              placeholder="City"
+              name="city"
+              id="city"
+              value={state.city}
+              onChange={handleChange}
+            />
+            <input
+              className="FormHalf"
+              placeholder="Zip"
+              name="zip"
+              id="zip"
+              value={state.zip}
+              onChange={handleChange}
+            />
           </div>
-          <select className="FormSelect" id="country">
+          <select
+            className="FormSelect"
+            id="state"
+            name="state"
+            onChange={handleChangeState}
+          >
             <option value={0}>Select State</option>
             {StatesList.map(({ name, abbreviation }, idx) =>
               StateToOption({ name, abbreviation, key: idx })
@@ -61,8 +119,10 @@ const AddressForm = () => {
             placeholder="Email"
             name="email"
             id="email"
+            value={state.email}
+            onChange={handleChange}
           />
-          <Button text="SUBMIT" handleClick={() => history.push("/")} />
+          <Button text="SUBMIT" handleClick={() => console.log(state)} />
         </form>
       </BodyText>
     </div>
