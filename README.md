@@ -12,7 +12,6 @@ clone this repo
     
 install dependencies
 
-    cd icksp-payment-portal-frontend
     yarn install
     
 run
