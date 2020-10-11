@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
-import { TitleText, BodyText, Button } from "../index";
+import { TitleText, Button } from "../index";
 import "./formStyle.less";
 import StatesList from "./statesList";
 import schema from "./AddressSchema";
@@ -48,95 +48,93 @@ const AddressForm = ({ handleSubmit }) => {
       <TitleText>
         WHERE SHOULD WE SEND YOUR FREE MEMORARE PRAYER CARDS?
       </TitleText>
-      <BodyText>
-        <form
-          ref={ref}
-          id="addressForm"
-          className="BodyTextForm"
-          onSubmit={() => handleVerify()}
+      <form
+        ref={ref}
+        id="addressForm"
+        className="BodyTextForm"
+        onSubmit={() => handleVerify()}
+      >
+        <input
+          className="FormInput"
+          placeholder="John Smith"
+          name="fullname"
+          id="fullname"
+          value={state.fullname}
+          onChange={handleChange}
+        />
+        <select
+          className="FormSelect"
+          id="country"
+          name="country"
+          onChange={handleChangeCountry}
+        >
+          <option value={0}>Select Country</option>
+          <option name="country" value="US">
+            United States of America
+          </option>
+        </select>
+        <input
+          className="FormInput"
+          placeholder="Address Line 1"
+          name="addr1"
+          id="addr1"
+          value={state.addr1}
+          onChange={handleChange}
+        />
+        <input
+          className="FormInput"
+          placeholder="Address Line 2"
+          name="addr2"
+          id="addr2"
+          value={state.addr2}
+          onChange={handleChange}
+        />
+        <div
+          style={{
+            width: `calc(50 * 1vmin)`,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}
         >
           <input
-            className="FormInput"
-            placeholder="John Smith"
-            name="fullname"
-            id="fullname"
-            value={state.fullname}
-            onChange={handleChange}
-          />
-          <select
-            className="FormSelect"
-            id="country"
-            name="country"
-            onChange={handleChangeCountry}
-          >
-            <option value={0}>Select Country</option>
-            <option name="country" value="US">
-              United States of America
-            </option>
-          </select>
-          <input
-            className="FormInput"
-            placeholder="Address Line 1"
-            name="addr1"
-            id="addr1"
-            value={state.addr1}
+            className="FormHalf"
+            placeholder="City"
+            name="city"
+            id="city"
+            value={state.city}
             onChange={handleChange}
           />
           <input
-            className="FormInput"
-            placeholder="Address Line 2"
-            name="addr2"
-            id="addr2"
-            value={state.addr2}
+            className="FormHalf"
+            placeholder="Zip"
+            name="zip"
+            id="zip"
+            value={state.zip}
             onChange={handleChange}
           />
-          <div
-            style={{
-              width: `calc(50 * 1vmin)`,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center"
-            }}
-          >
-            <input
-              className="FormHalf"
-              placeholder="City"
-              name="city"
-              id="city"
-              value={state.city}
-              onChange={handleChange}
-            />
-            <input
-              className="FormHalf"
-              placeholder="Zip"
-              name="zip"
-              id="zip"
-              value={state.zip}
-              onChange={handleChange}
-            />
-          </div>
-          <select
-            className="FormSelect"
-            id="state"
-            name="state"
-            onChange={handleChangeState}
-          >
-            <option value={0}>Select State</option>
-            {StatesList.map(({ name, abbreviation }, idx) =>
-              StateToOption({ name, abbreviation, key: idx })
-            )}
-          </select>
-          <input
-            className="FormInput"
-            placeholder="Email"
-            name="email"
-            id="email"
-            value={state.email}
-            onChange={handleChange}
-          />
-          <Button text="SUBMIT" type="button" handleClick={handleVerify} />
-        </form>
-      </BodyText>
+        </div>
+        <select
+          className="FormSelect"
+          id="state"
+          name="state"
+          onChange={handleChangeState}
+        >
+          <option value={0}>Select State</option>
+          {StatesList.map(({ name, abbreviation }, idx) =>
+            StateToOption({ name, abbreviation, key: idx })
+          )}
+        </select>
+        <input
+          className="FormInput"
+          placeholder="Email"
+          name="email"
+          id="email"
+          value={state.email}
+          onChange={handleChange}
+        />
+        <Button text="SUBMIT" type="button" handleClick={handleVerify} />
+      </form>
     </div>
   );
 };
