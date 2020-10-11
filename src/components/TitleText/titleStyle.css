@@ -6,6 +6,8 @@
 }
 
 .TitleText h2 {
+  text-align: center;
+  width: calc(50 * 1vmin);
   /* placeholder Google font imported from index.html */
   font-family: 'Cormorant SC', serif;
   font-size: calc(10px + 2vmin);

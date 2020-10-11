@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from "react-router-dom";
-import { PrayerCard } from './components'
+import { PrayerCard, AddressForm } from './components'
 import './App.css';
 
 function App() {
@@ -11,6 +11,7 @@ function App() {
       </header>
       <Switch>
         <Route path="/" exact component={PrayerCard} />
+        <Route path="/where" exact component={AddressForm} />
       </Switch>
     </div>
   );

@@ -1,6 +1,8 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 import { TitleText, BodyText, Button } from "./index";
 const PrayWithUs = () => {
+  const history = useHistory();
   return ( 
     <div className="PrayWithUs">
       <TitleText>PRAY WITH US</TitleText>
@@ -20,7 +22,7 @@ const PrayWithUs = () => {
         </p>
         <p>Will you pray the Memorare with us daily?</p>
           <p>{"  "}</p>
-        <Button text="YES, PLEASE SEND ME MY FIRST PRAYER CARD!" handleClick={() => console.log('Prayer Card -> click')} />
+        <Button text="YES, PLEASE SEND ME MY FIRST PRAYER CARD!" handleClick={() => history.push('/where')} />
       </BodyText>
     </div>
    );
