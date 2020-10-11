@@ -5,8 +5,10 @@ const BodyText = (props) => {
 
   if (props.children){
     return ( 
-      <div className="BodyText">
-        {props.children}
+      <div style={{width:'100vw', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
+        <div className="BodyText">
+          {props.children}
+        </div>
       </div>
      );
   }
