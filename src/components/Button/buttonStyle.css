@@ -6,6 +6,7 @@
   padding: 2vmin;
   padding-left: 4rem;
   padding-right: 4rem;
+  cursor: pointer;
   background-color: #742c20;
   width: calc(40 * 1vmin);
   font-family: 'Cormorant SC', serif;
