@@ -1,0 +1,14 @@
+.Button-Red {
+  align-items: center;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding: 2vmin;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  background-color: #742c20;
+  width: calc(40 * 1vmin);
+  font-family: 'Cormorant SC', serif;
+  font-size: calc(10px + 1vmin);
+  color: #e1edfb;
+}

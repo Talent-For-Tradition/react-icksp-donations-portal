@@ -1,5 +1,5 @@
 import React from 'react';
-import { TitleText, BodyText } from "..";
+import { TitleText, BodyText, Button } from "..";
 const PrayWithUs = () => {
   return ( 
     <div className="PrayWithUs">
@@ -19,9 +19,11 @@ const PrayWithUs = () => {
           divine mission.
         </p>
         <p>Will you pray th Memorare with us daily?</p>
+          <p>{"  "}</p>
+        <Button text="YES, PLEASE SEND ME MY FIRST PRAYER CARD!" handleClick={() => console.log('Prayer Card -> click')} />
       </BodyText>
     </div>
    );
 }
- 
+
 export default PrayWithUs;
