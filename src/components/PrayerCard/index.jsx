@@ -18,7 +18,7 @@ const PrayWithUs = () => {
           to remind you of your critical role in this
           divine mission.
         </p>
-        <p>Will you pray th Memorare with us daily?</p>
+        <p>Will you pray the Memorare with us daily?</p>
           <p>{"  "}</p>
         <Button text="YES, PLEASE SEND ME MY FIRST PRAYER CARD!" handleClick={() => console.log('Prayer Card -> click')} />
       </BodyText>
