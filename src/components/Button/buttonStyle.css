@@ -11,5 +11,6 @@
   width: calc(40 * 1vmin);
   font-family: 'Cormorant SC', serif;
   font-size: calc(10px + 1vmin);
+  font-weight: bold;
   color: #e1edfb;
 }

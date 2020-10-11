@@ -1,5 +1,5 @@
 import React from 'react';
-import { TitleText, BodyText, Button } from "..";
+import { TitleText, BodyText, Button } from "./index";
 const PrayWithUs = () => {
   return ( 
     <div className="PrayWithUs">
