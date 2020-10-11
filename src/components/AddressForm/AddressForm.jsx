@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { TitleText, BodyText, Button } from "../index";
-import "./formStyle.css";
+import "./formStyle.less";
 import StatesList from "./statesList";
 import schema from "./AddressSchema";
 function StateToOption({ name, abbreviation, key }) {

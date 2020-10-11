@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from "react-router-dom";
 import { PrayerCard, AddressForm } from './components'
-import './App.css';
+import './App.less';
 
 function App() {
   return (

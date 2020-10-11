@@ -1,5 +1,5 @@
 import React from 'react';
-import "./bodyStyle.css";
+import "./bodyStyle.less";
 
 const BodyText = (props) => {
 
