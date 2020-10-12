@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Button from "../Button";
 import TitleText from "../TitleText";
-
+import schema from "./MobileSchema";
 const TIMEZONES = ["EST", "PST", "MT", "CT"];
 const genHours = () => {
   const hrs = [];
@@ -32,7 +32,12 @@ function tzToOption(zone, key) {
 const MobileTextForm = () => {
   const [state, setState] = useState({ mobile: "", hour: "10:00AM", timezone: "EST" });
   const ref = useRef(null);
-  const handleVerify = () => {};
+  const handleVerify = () => {
+    console.log('verify')
+    const { error, value } = schema.validate(state);
+    error ? console.log(error) : console.log('OK!'); // replace with call to API
+    console.log(value);
+  };
   const handleChange = (e) => {
     e.preventDefault();
     setState({ ...state, [e.target.name]: e.target.value });
