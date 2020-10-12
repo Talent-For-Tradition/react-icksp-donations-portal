@@ -5,4 +5,14 @@ import AddressForm from "./AddressForm";
 import Button from "./Button";
 import Modal from "./Modal";
 import Reminder from "./Reminder";
-export { TitleText, BodyText, PrayerCard, AddressForm, Button, Modal, Reminder };
+import MobileTextForm from "./MobileTextForm";
+export {
+  TitleText,
+  BodyText,
+  PrayerCard,
+  AddressForm,
+  Button,
+  Modal,
+  Reminder,
+  MobileTextForm
+};

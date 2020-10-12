@@ -95,12 +95,7 @@ const AddressForm = ({ handleSubmit }) => {
           onChange={handleChange}
         />
         <div
-          style={{
-            width: `calc(50 * 1vmin)`,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center"
-          }}
+          className="FormDouble"
         >
           <input
             className="FormHalf"

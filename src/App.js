@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { Switch, Route } from "react-router-dom";
-import { PrayerCard, AddressForm } from './components'
+import { PrayerCard, AddressForm, MobileTextForm } from "./components";
 
-import './App.less';
+import "./App.less";
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
       <Switch>
         <Route path="/" exact component={PrayerCard} />
         <Route path="/where" exact component={AddressForm} />
+        <Route path="/mobile" exact component={MobileTextForm} />
       </Switch>
     </div>
   );
