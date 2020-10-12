@@ -7,6 +7,7 @@ import Modal from "./Modal";
 import Reminder from "./Reminder";
 import MobileTextForm from "./MobileTextForm";
 import ThankYou from "./ThankYou";
+import Donations from "./Donations";
 export {
   TitleText,
   BodyText,
@@ -16,5 +17,6 @@ export {
   Modal,
   Reminder,
   MobileTextForm,
-  ThankYou
+  ThankYou,
+  Donations
 };

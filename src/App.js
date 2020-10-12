@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import { PrayerCard, AddressForm, MobileTextForm, ThankYou } from "./components";
+import { PrayerCard, AddressForm, MobileTextForm, ThankYou, Donations } from "./components";
 import "./App.less";
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
         <Route path="/where" exact component={AddressForm} />
         <Route path="/mobile" exact component={MobileTextForm} />
         <Route path="/thankyou" exact component={ThankYou} />
+        <Route path="/donate" exact component={Donations} />
       </Switch>
     </div>
   );
