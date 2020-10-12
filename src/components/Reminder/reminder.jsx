@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../Button";
 import "./reminder.less";
 
 const Reminder = ({ escape }) => {
@@ -15,7 +16,16 @@ const Reminder = ({ escape }) => {
         <p>May we send you daily text</p>
         <p>reminders to pray the Memorare?</p>
         <div className="container-YesNo">
-        <button>yes please</button><button>no thank you</button>
+          <Button
+            buttonClass="Button-Blue-half"
+            text="yes, please"
+            handleClick={() => console.log("yes")}
+          />
+          <Button
+            buttonClass="Button-Red-half"
+            text="no thank you"
+            handleClick={() => console.log("no")}
+          />
         </div>
       </>
     </div>
