@@ -1,8 +1,10 @@
-import React, { useRef, useState } from "react";
+import React from "react";
+import {useRecoilState} from "recoil";
 import {useHistory} from 'react-router-dom';
 import Button from "../Button";
 import TitleText from "../TitleText";
 import schema from "./MobileSchema";
+import {reminder} from "../../atoms";
 const TIMEZONES = ["EST", "PST", "MT", "CT"];
 const genHours = () => {
   const hrs = [];
@@ -32,14 +34,11 @@ function tzToOption(zone, key) {
 
 const MobileTextForm = () => {
   // Prayer Card, daily reminder (4)
-  const [state, setState] = useState({ mobile: "", hour: "10:00AM", timezone: "EST" });
+  const [state, setState] = useRecoilState(reminder)
   const history = useHistory();
-  const ref = useRef(null);
   const handleVerify = () => {
-    console.log('verify')
-    const { error, value } = schema.validate(state);
+    const { error } = schema.validate(state);
     error ? console.log(error) : history.push('/thankyou'); // replace with call to API
-    console.log(value);
   };
   const handleChange = (e) => {
     e.preventDefault();
@@ -49,7 +48,6 @@ const MobileTextForm = () => {
     <>
       <div className="AddressForm">
         <form
-          ref={ref}
           id="mobileForm"
           className="BodyTextForm"
           style={{ marginTop: "3rem" }}
