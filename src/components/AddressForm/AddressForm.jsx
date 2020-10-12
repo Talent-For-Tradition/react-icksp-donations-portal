@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
-import { useHistory } from "react-router-dom";
-import { TitleText, Button } from "../index";
+// import { useHistory } from "react-router-dom";
+import { TitleText, Button, Modal, Reminder } from "../index";
 import "./formStyle.less";
 import StatesList from "./statesList";
 import schema from "./AddressSchema";
@@ -13,8 +13,9 @@ function StateToOption({ name, abbreviation, key }) {
 }
 
 const AddressForm = ({ handleSubmit }) => {
-  const history = useHistory();
+  // const history = useHistory();
   const ref = useRef(null);
+  const [open, setOpen] = useState(false);
   const [state, setState] = useState({
     fullname: "",
     country: "",
@@ -40,10 +41,14 @@ const AddressForm = ({ handleSubmit }) => {
   const handleVerify = () => {
     // verify state and send to callback
     const { error, value } = schema.validate(state);
-    error ? console.log(error) : history.push("/"); // replace with call to API
+    error ? console.log(error) : setOpen(true); // replace with call to API
     console.log(value);
   };
   return (
+    <>
+    <Modal open={open}>
+      <Reminder escape={()=> setOpen(false)}/>
+    </Modal>
     <div className="AddressForm">
       <TitleText>
         WHERE SHOULD WE SEND YOUR FREE MEMORARE PRAYER CARDS?
@@ -136,6 +141,7 @@ const AddressForm = ({ handleSubmit }) => {
         <Button text="SUBMIT" type="button" handleClick={handleVerify} />
       </form>
     </div>
+    </>
   );
 };
 
