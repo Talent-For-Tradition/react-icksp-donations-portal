@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import {useHistory} from 'react-router-dom';
 import Button from "../Button";
 import TitleText from "../TitleText";
 import schema from "./MobileSchema";
@@ -30,12 +31,14 @@ function tzToOption(zone, key) {
 }
 
 const MobileTextForm = () => {
+  // Prayer Card, daily reminder (4)
   const [state, setState] = useState({ mobile: "", hour: "10:00AM", timezone: "EST" });
+  const history = useHistory();
   const ref = useRef(null);
   const handleVerify = () => {
     console.log('verify')
     const { error, value } = schema.validate(state);
-    error ? console.log(error) : console.log('OK!'); // replace with call to API
+    error ? console.log(error) : history.push('/thankyou'); // replace with call to API
     console.log(value);
   };
   const handleChange = (e) => {

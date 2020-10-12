@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-// import { useHistory } from "react-router-dom";
 import { TitleText, Button, Modal, Reminder } from "../index";
 import "./formStyle.less";
 import StatesList from "./statesList";
@@ -13,7 +12,7 @@ function StateToOption({ name, abbreviation, key }) {
 }
 
 const AddressForm = ({ handleSubmit }) => {
-  // const history = useHistory();
+  // Prayer Card, where? (2)
   const ref = useRef(null);
   const [open, setOpen] = useState(false);
   const [state, setState] = useState({
@@ -25,7 +24,7 @@ const AddressForm = ({ handleSubmit }) => {
     zip: "",
     state: "",
     email: ""
-  });
+  })
   const handleChange = (e) => {
     e.preventDefault();
     setState({ ...state, [e.target.name]: e.target.value });

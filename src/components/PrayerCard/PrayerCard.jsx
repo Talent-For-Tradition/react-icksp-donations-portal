@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from "react-router-dom";
 import { TitleText, BodyText, Button } from "../index";
 const PrayWithUs = () => {
+  // Prayer Card (1)
   const history = useHistory();
   return ( 
     <div className="PrayWithUs">

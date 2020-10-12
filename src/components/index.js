@@ -6,6 +6,7 @@ import Button from "./Button";
 import Modal from "./Modal";
 import Reminder from "./Reminder";
 import MobileTextForm from "./MobileTextForm";
+import ThankYou from "./ThankYou";
 export {
   TitleText,
   BodyText,
@@ -14,5 +15,6 @@ export {
   Button,
   Modal,
   Reminder,
-  MobileTextForm
+  MobileTextForm,
+  ThankYou
 };
