@@ -1,3 +1,35 @@
+button {
+  display: inline-block;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0;
+  text-decoration: none;
+  background: #0069ed;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+button:hover,
+button:focus {
+  background: #233b7b;
+  color: #e1edfb;
+}
+
+button:focus {
+  outline: 1px solid #e1edfb;
+  outline-offset: -1px;
+}
+
+button:active {
+  transform: scale(0.99);
+}
+
 .Button-Red {
   align-items: center;
   display: flex;
@@ -13,7 +45,7 @@
   font-weight: bold;
   color: #e1edfb;
 }
-.Button-Red-half {
+.old-Button-Red-half {
   align-items: center;
   display: flex;
   text-align: center;
@@ -28,7 +60,7 @@
   font-weight: bold;
   color: #e1edfb;
 }
-.Button-Blue-half {
+.old-Button-Blue-half {
   align-items: center;
   display: flex;
   text-align: center;
@@ -42,4 +74,36 @@
   font-size: calc(10px + 1vmin);
   font-weight: bold;
   color: #e1edfb;
+}
+.Button-Blue-half {
+  align-items: center;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding: 2vmin;
+  cursor: pointer;
+  margin: 1vmin;
+  background-color: #233b7b;
+  color: #e1edfb;
+  font-family: "Cormorant SC", serif;
+  font-size: calc(10px + 1vmin);
+  font-weight: bold;
+  &:hover,
+  &:focus {
+    outline: 2px solid #742c20;
+    outline-offset: -2px;  }
+}
+.Button-Red-half {
+  align-items: center;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding: 2vmin;
+  cursor: pointer;
+  margin: 1vmin;
+  background-color: #742c20;
+  color: #e1edfb;
+  font-family: "Cormorant SC", serif;
+  font-size: calc(10px + 1vmin);
+  font-weight: bold;
 }

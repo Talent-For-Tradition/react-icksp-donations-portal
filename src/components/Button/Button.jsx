@@ -10,9 +10,9 @@ const Button = ({ text, handleClick, buttonClass }) => {
   }, [text, state]);
 
   return (
-    <div className={buttonClass ? buttonClass : "Button-Red"} onClick={() => handleClick()}>
+    <button className={buttonClass ? buttonClass : "Button-Red"} onClick={() => handleClick()}>
       {text}
-    </div>
+    </button>
   );
 };
 

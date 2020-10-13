@@ -53,7 +53,7 @@ const AddressForm = ({ handleSubmit }) => {
           ref={ref}
           id="addressForm"
           className="BodyTextForm"
-          onSubmit={() => handleVerify()}
+          onSubmit={(e) => e.preventDefault() && handleVerify()}
         >
           <input
             className="FormInput"

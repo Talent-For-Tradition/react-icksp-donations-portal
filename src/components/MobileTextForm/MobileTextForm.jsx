@@ -51,7 +51,7 @@ const MobileTextForm = () => {
           id="mobileForm"
           className="BodyTextForm"
           style={{ marginTop: "3rem" }}
-          onSubmit={handleVerify}
+          onSubmit={(e) => e.preventDefault() && handleVerify()}
         >
           <input
             className="FormInput"

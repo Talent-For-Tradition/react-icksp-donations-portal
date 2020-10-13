@@ -28,7 +28,7 @@ const Donations = () => {
           <p>Choose an amount to give per month</p>
           <div className="container-buttons">
             <Button text="$20 usd/mo" buttonClass="Button-donate" handleClick={()=> handleDonate(20)} />
-            <Button text="$40 usd/mo" buttonClass="Button-donate-blue" handleClick={()=> handleDonate(40)}/>
+            <Button text="$40 usd/mo" buttonClass="Button-donate" handleClick={()=> handleDonate(40)}/>
             <Button text="$60 usd/mo" buttonClass="Button-donate" handleClick={()=> handleDonate(60)}/>
           </div>
           <div className="container-buttons">
