@@ -1,7 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { PrayerCard, AddressForm, MobileTextForm, ThankYou, Donations } from "./components";
-// import "./App.css";
 
 function App() {
   return (
