@@ -14,7 +14,7 @@
     "recoil": "^0.0.13"
   },
   "scripts": {
-    "style": "lessc src/App.less src/App.css && lessc src/reset.less src/index.css",
+    "style": "lessc src/index.less src/index.css",
     "start": "yarn style && react-scripts start",
     "build": "yarn style && react-scripts build",
     "test": "yarn style && react-scripts test",
