@@ -5,7 +5,6 @@ import BodyText from "../BodyText";
 import TitleText from "../TitleText";
 import Button from "../Button";
 
-import "./Donations.less";
 const Donations = () => {
   const [state, setState] = useRecoilState(donation);
   const handleDonate = amount => {

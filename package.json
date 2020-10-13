@@ -3,11 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^5.7.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "craco-less": "^1.17.0",
     "joi": "^17.2.1",
     "react": "^17.0.0-rc.3",
     "react-dom": "^17.0.0-rc.3",
@@ -16,10 +14,11 @@
     "recoil": "^0.0.13"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "craco eject"
+    "style": "lessc src/App.less src/App.css && lessc src/reset.less src/index.css",
+    "start": "yarn style && react-scripts start",
+    "build": "yarn style && react-scripts build",
+    "test": "yarn style && react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,5 +34,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "less": "^3.12.2"
   }
 }

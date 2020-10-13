@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDom from 'react-dom';
 
-import "./modal.less";
-
 const Modal = ({ open, children }) => {
   if (!open) return null;
 

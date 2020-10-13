@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./buttonStyle.less";
 
 const Button = ({ text, handleClick, buttonClass }) => {
   const [state, setState] = useState({ text: "", status: "" });

@@ -1,7 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import Button from "../Button";
-import "./reminder.less";
 
 const Reminder = ({ escape }) => {
   // Prayer Card, contents of modal (3)

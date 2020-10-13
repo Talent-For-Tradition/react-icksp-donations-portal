@@ -1,5 +1,4 @@
 import React from 'react';
-import './titleStyle.less';
 
 const TitleText = (props) => {
   return ( 

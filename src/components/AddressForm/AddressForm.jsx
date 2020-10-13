@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { TitleText, Button, Modal, Reminder } from "../index";
-import "./formStyle.less";
+// import "./formStyle.less";
 import StatesList from "./statesList";
 import schema from "./AddressSchema";
 import { useRecoilState } from "recoil";
@@ -19,16 +19,6 @@ const AddressForm = ({ handleSubmit }) => {
   const ref = useRef(null);
   const [open, setOpen] = useState(false);
   const [state, setState] = useRecoilState(member);
-  // const [state, setState] = useState({
-  //   fullname: "",
-  //   country: "",
-  //   addr1: "",
-  //   addr2: "",
-  //   city: "",
-  //   zip: "",
-  //   state: "",
-  //   email: ""
-  // })
   const handleChange = (e) => {
     e.preventDefault();
     setState({ ...state, [e.target.name]: e.target.value });
