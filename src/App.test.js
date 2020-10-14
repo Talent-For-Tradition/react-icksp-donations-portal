@@ -3,6 +3,8 @@ import { MemoryRouter } from "react-router-dom";
 import { render } from "@testing-library/react";
 import App from "./App";
 
+// testing basic rendering of the App
+
 test("includes our Lord Jesus Christ", async function() {
   try {
     const {getByText} = await render(<App />, {wrapper: MemoryRouter});
@@ -29,4 +31,3 @@ test("logo source file is crest.png", async function() {
     throw(Error())
   }
 })
-
