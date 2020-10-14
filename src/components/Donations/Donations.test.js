@@ -65,6 +65,7 @@ test("<Button />(s) exist for 20, 40, 60, 80, & other amount", async function ()
   const eighty = screen.getByText(/80 USD/i);
   const otherAmt = screen.getByText(/Other Amount/i);
 
+  // TODO: these buttons still need to be functionally tested 
   expect(twenty).toBeInTheDocument();
   expect(forty).toBeInTheDocument();
   expect(sixty).toBeInTheDocument();
