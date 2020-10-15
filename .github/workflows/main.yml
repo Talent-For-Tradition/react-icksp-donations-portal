@@ -1,5 +1,4 @@
-# tests
-
+# This workflow will setup and run (jest) tests whenever the main branch changes.
 name: CI
 
 on:
@@ -16,7 +15,7 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '12'
-        check-latest: true
     - run: npm install -G yarn
     - run: yarn install
     - run: yarn test
+# Setup any custom deployment steps here.
