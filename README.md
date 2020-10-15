@@ -1,10 +1,10 @@
-# icksp-payment-portal-frontend
+# icksp-payment-portal
 requires [NodeJS](https://nodejs.org/en/)
 
 
 install/upgrade yarn global binary:
     
-    npm install -g yarn
+    npm install -G yarn
 
 clone this repo
 
