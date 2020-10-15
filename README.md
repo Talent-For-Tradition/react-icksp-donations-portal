@@ -1,4 +1,4 @@
-# icksp-payment-portal
+# react-icksp-payment-portal
 requires [NodeJS](https://nodejs.org/en/)
 
 
@@ -8,7 +8,7 @@ install/upgrade yarn global binary:
 
 clone this repo
 
-    git clone https://github.com/Talent-For-Tradition/icksp-payment-portal-frontend
+    git clone https://github.com/Talent-For-Tradition/react-icksp-payment-portal
     
 install dependencies
 
