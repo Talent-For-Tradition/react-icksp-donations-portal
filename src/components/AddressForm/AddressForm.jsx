@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import { TitleText, Button, Modal, Reminder } from "../index";
-// import "./formStyle.less";
 import StatesList from "./statesList";
 import schema from "./AddressSchema";
 import { useRecoilState } from "recoil";
@@ -18,6 +17,7 @@ const AddressForm = ({ handleSubmit }) => {
   // Prayer Card, where? (2)
   const ref = useRef(null);
   const [open, setOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [state, setState] = useRecoilState(member);
   const handleChange = (e) => {
     e.preventDefault();
@@ -38,8 +38,19 @@ const AddressForm = ({ handleSubmit }) => {
   const handleVerify = () => {
     // verify state and send to callback
     const { error } = schema.validate(state);
-    error ? console.log(error) : submitForm() // replace with call to API
+    setErrorMessage(error || null);
+    if (!error) {
+      submitForm();
+    }
+    // console.log(error)
   };
+  const hasError = (key) => {
+    if(errorMessage) {
+      // determine if error belongs to key
+      return errorMessage.details.filter((err) => err.context.key === key).length > 0;
+    }
+    return false
+  }
   return (
     <>
       <Modal open={open}>
@@ -62,12 +73,14 @@ const AddressForm = ({ handleSubmit }) => {
             id="fullname"
             value={state.fullname}
             onChange={handleChange}
+            style={{border: hasError('fullname') ? '2px solid red':'none'}}
           />
           <select
             className="FormSelect"
             id="country"
             name="country"
             onChange={handleChangeCountry}
+            style={{border: hasError('country') ? '2px solid red':'none'}}
           >
             <option value={0}>Select Country</option>
             <option name="country" value="US">
@@ -81,6 +94,7 @@ const AddressForm = ({ handleSubmit }) => {
             id="addr1"
             value={state.addr1}
             onChange={handleChange}
+            style={{border: hasError('addr1') ? '2px solid red':'none'}}
           />
           <input
             className="FormInput"
@@ -98,7 +112,8 @@ const AddressForm = ({ handleSubmit }) => {
               id="city"
               value={state.city}
               onChange={handleChange}
-            />
+              style={{border: hasError('city') ? '2px solid red':'none'}}
+              />
             <input
               className="FormHalf"
               placeholder="Zip"
@@ -106,6 +121,7 @@ const AddressForm = ({ handleSubmit }) => {
               id="zip"
               value={state.zip}
               onChange={handleChange}
+              style={{border: hasError('zip') ? '2px solid red':'none'}}
             />
           </div>
           <select
@@ -113,6 +129,7 @@ const AddressForm = ({ handleSubmit }) => {
             id="state"
             name="state"
             onChange={handleChangeState}
+            style={{border: hasError('state') ? '2px solid red':'none'}}
           >
             <option value={0}>Select State</option>
             {StatesList.map(({ name, abbreviation }, idx) =>
@@ -126,6 +143,7 @@ const AddressForm = ({ handleSubmit }) => {
             id="email"
             value={state.email}
             onChange={handleChange}
+            style={{border: hasError('email') ? '2px solid red':'none'}}
           />
           <Button text="SUBMIT" type="button" handleClick={handleVerify} />
         </form>
