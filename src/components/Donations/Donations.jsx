@@ -31,32 +31,32 @@ const Donations = () => {
             <Button
               text="$20 usd/mo"
               buttonClass="Button-donate"
-              handleClick={() => handleDonate(20)}
+              onClick={() => handleDonate(20)}
             />
             <Button
               text="$40 usd/mo"
               buttonClass="Button-donate"
-              handleClick={() => handleDonate(40)}
+              onClick={() => handleDonate(40)}
             />
             <Button
               text="$60 usd/mo"
               buttonClass="Button-donate"
-              handleClick={() => handleDonate(60)}
+              onClick={() => handleDonate(60)}
             />
           </div>
           <div className="container-buttons">
             <Button
               text="$80 usd/mo"
               buttonClass="Button-donate"
-              handleClick={() => handleDonate(80)}
+              onClick={() => handleDonate(80)}
             />
             <Button
               text="Other Amount"
               buttonClass="Button-donate-other"
-              handleClick={() => handleOther()}
+              onClick={() => handleOther()}
             />
           </div>
-          <Button text="DONATE MONTHLY" handleClick={processMonthlyDonation} />
+          <Button text="DONATE MONTHLY" onClick={processMonthlyDonation} />
           <div className="boxed-text">
             You can adjust or cancel your recurring donation at anytime.
           </div>
