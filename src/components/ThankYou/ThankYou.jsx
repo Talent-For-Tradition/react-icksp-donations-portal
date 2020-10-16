@@ -13,7 +13,7 @@ const ThankYou = ({ fullname }) => {
   const reminderValue = useRecoilValue(reminder); // read-only
   
   useEffect(() => {
-    console.log(memberValue.fullname + ", thank you.")
+    // console.log(memberValue.fullname + ", thank you.")
   }, [memberValue, reminderValue])
 
   return (
