@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 import { TitleText, Modal, Reminder, Input, Select } from "../index";
-import StatesList from "./statesList";
 import addressSchema from "./AddressSchema";
 import { useRecoilState } from "recoil";
 import { member } from "../../atoms";
 import Joi from "joi";
 
-function StateToOption({ name, abbreviation, key }) {
-  return (
-    <option key={key} value={abbreviation}>
-      {name}
-    </option>
-  );
-}
+import STATES from "./options";
+
 /**
  * Where should we send
  * your free memorare cards?
@@ -95,9 +89,7 @@ const AddressForm = () => {
           </div>
           <Select name="state" onChange={handleChange} err={err}>
             <option value={0}>Select State</option>
-            {StatesList.map(({ name, abbreviation }, idx) =>
-              StateToOption({ name, abbreviation, key: idx })
-            )}
+            {STATES}
           </Select>
           <Input placeholder="Email" name="email" err={err} onChange={handleChange}/>
           <Input type="submit" className="Button-Red" onChange={handleChange}/>
