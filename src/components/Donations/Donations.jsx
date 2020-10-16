@@ -1,9 +1,9 @@
 import React from "react";
 import { donation, member } from "../../atoms";
 import { useRecoilState, useRecoilValue } from "recoil";
-import BodyText from "../BodyText";
-import TitleText from "../TitleText";
-import Button from "../Button";
+import BodyText from "../Common/BodyText";
+import TitleText from "../Common/TitleText";
+import Button from "../Common/Button";
 import { processDonation } from "../../integrations/donationAPI";
 
 const Donations = () => {

@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const schema = Joi.object({
+const addressSchema = {
   fullname: Joi.string()
     .min(3)
     .max(42)
@@ -29,6 +29,6 @@ const schema = Joi.object({
     .max(2)
     .required(),
   email: Joi.string().email({ tlds: {allow: false} })
-});
+};
 
-export default schema;
+export default addressSchema;

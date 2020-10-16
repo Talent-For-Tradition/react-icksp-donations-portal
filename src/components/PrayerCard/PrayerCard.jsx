@@ -22,7 +22,7 @@ const PrayWithUs = () => {
           divine mission.
         </p>
         <p>Will you pray the Memorare with us daily?</p>
-        <Button text="YES, PLEASE SEND ME MY FIRST PRAYER CARD!" handleClick={() => history.push('/where')} />
+        <Button text="YES, PLEASE SEND ME MY FIRST PRAYER CARD!" onClick={() => history.push('/where')} />
       </BodyText>
     </div>
    );

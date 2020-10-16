@@ -1,13 +1,15 @@
-import TitleText from "./TitleText";
-import BodyText from "./BodyText";
+import TitleText from "./Common/TitleText";
+import BodyText from "./Common/BodyText";
 import PrayerCard from "./PrayerCard";
 import AddressForm from "./AddressForm";
-import Button from "./Button";
-import Modal from "./Modal";
+import Button from "./Common/Button";
+import Modal from "./Common/Modal";
 import Reminder from "./Reminder";
 import MobileTextForm from "./MobileTextForm";
 import ThankYou from "./ThankYou";
 import Donations from "./Donations";
+import Input from "./Common/Input";
+import Select from "./Common/Select";
 export {
   TitleText,
   BodyText,
@@ -18,5 +20,7 @@ export {
   Reminder,
   MobileTextForm,
   ThankYou,
-  Donations
+  Donations,
+  Input,
+  Select
 };

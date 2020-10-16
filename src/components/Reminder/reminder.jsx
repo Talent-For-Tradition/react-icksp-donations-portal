@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import Button from "../Button";
+import Button from "../Common/Button";
 
 const Reminder = ({ escape }) => {
   // Prayer Card, contents of modal (3)
@@ -25,12 +25,12 @@ const Reminder = ({ escape }) => {
         <Button
           buttonClass="Button-Blue-half"
           text="yes, please"
-          handleClick={handleYes}
+          onClick={handleYes}
         />
         <Button
           buttonClass="Button-Red-half"
           text="no thank you"
-          handleClick={handleNo}
+          onClick={handleNo}
         />
       </div>
     </>

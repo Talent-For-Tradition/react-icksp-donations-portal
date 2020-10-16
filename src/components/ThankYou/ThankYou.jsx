@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
 import { useHistory } from "react-router-dom";
-import TitleText from "../TitleText";
-import BodyText from "../BodyText";
-import Button from "../Button";
+import TitleText from "../Common/TitleText";
+import BodyText from "../Common/BodyText";
+import Button from "../Common/Button";
 import { member, reminder } from "../../atoms";
 import { useRecoilValue } from "recoil";
 
@@ -31,7 +31,7 @@ const ThankYou = ({ fullname }) => {
         </p>
         <Button
           text="YES, PLEASE SHOW ME!"
-          handleClick={() => history.push("/donate")}
+          onClick={() => history.push("/donate")}
         />
       </BodyText>
     </>

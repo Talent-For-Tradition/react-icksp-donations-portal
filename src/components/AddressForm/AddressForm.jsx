@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
-import { TitleText, Button, Modal, Reminder } from "../index";
+import React, { useState } from "react";
+import { TitleText, Modal, Reminder, Input, Select } from "../index";
 import StatesList from "./statesList";
-import schema from "./AddressSchema";
+import addressSchema from "./AddressSchema";
 import { useRecoilState } from "recoil";
 import { member } from "../../atoms";
+import Joi from "joi";
 
 function StateToOption({ name, abbreviation, key }) {
   return (
@@ -12,45 +13,59 @@ function StateToOption({ name, abbreviation, key }) {
     </option>
   );
 }
-
-const AddressForm = ({ handleSubmit }) => {
-  // Prayer Card, where? (2)
-  const ref = useRef(null);
+/**
+ * Where should we send
+ * your free memorare cards?
+ */
+const AddressForm = () => {
   const [open, setOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
   const [state, setState] = useRecoilState(member);
-  const handleChange = (e) => {
-    e.preventDefault();
-    setState({ ...state, [e.target.name]: e.target.value });
-  };
-  const handleChangeCountry = (e) => {
-    e.preventDefault();
-    setState({ ...state, country: e.target.value });
-  };
-  const handleChangeState = (e) => {
-    e.preventDefault();
-    setState({ ...state, state: e.target.value });
-  };
+  const [errorMessage, setErrorMessage] = useState(null);
+
+
   const submitForm = () => {
     // after verification
     setOpen(true); // open reminder modal
-  }
-  const handleVerify = () => {
+  };
+  /**
+   * validate a single property.
+   * @param {String} name element name
+   * @param {String} value element value
+   */
+  const validateProperty = ({ name, value }) => {
+    const obj = { [name]: value };
+    const schema = Joi.object({ [name]: addressSchema[name] });
+    const { error } = schema.validate(obj);
+    return error ? error.details[0].message : null;
+  };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    const [ name, value ] =  [[e.target.name], e.target.value];
+    const error = validateProperty({name, value});
+    setState({ ...state, [name]: value });
+    setErrorMessage({...errorMessage, [name]: error })
+  };
+
+  const handleVerify = (e) => {
     // verify state and send to callback
-    const { error } = schema.validate(state);
-    setErrorMessage(error || null);
+    e.preventDefault();
+    console.log("submitted");
+    const schema = Joi.object(addressSchema);
+    const { error } = schema.validate(state, { abortEarly: false });
     if (!error) {
       submitForm();
     }
-    // console.log(error)
-  };
-  const hasError = (key) => {
-    if(errorMessage) {
-      // determine if error belongs to key
-      return errorMessage.details.filter((err) => err.context.key === key).length > 0;
+    const errors = {};
+    if (error && error.details) {
+      for (let item of error.details) errors[item.path[0]] = item.message;
+      setErrorMessage(errors);
     }
-    return false
-  }
+  };
+
+  const err = (key) =>
+    errorMessage ? errorMessage[key]: false;
+
   return (
     <>
       <Modal open={open}>
@@ -61,91 +76,31 @@ const AddressForm = ({ handleSubmit }) => {
           WHERE SHOULD WE SEND YOUR FREE MEMORARE PRAYER CARDS?
         </TitleText>
         <form
-          ref={ref}
           id="addressForm"
           className="BodyTextForm"
-          onSubmit={(e) => e.preventDefault() && handleVerify()}
+          onSubmit={handleVerify}
         >
-          <input
-            className="FormInput"
-            placeholder="John Smith"
-            name="fullname"
-            id="fullname"
-            value={state.fullname}
-            onChange={handleChange}
-            style={{border: hasError('fullname') ? '2px solid red':'none'}}
-          />
-          <select
-            className="FormSelect"
-            id="country"
-            name="country"
-            onChange={handleChangeCountry}
-            style={{border: hasError('country') ? '2px solid red':'none'}}
-          >
+          <Input placeholder="John Smith" name="fullname" err={err} onChange={handleChange}/>
+          <Select name="country" onChange={handleChange} err={err}>
             <option value={0}>Select Country</option>
             <option name="country" value="US">
               United States of America
             </option>
-          </select>
-          <input
-            className="FormInput"
-            placeholder="Address Line 1"
-            name="addr1"
-            id="addr1"
-            value={state.addr1}
-            onChange={handleChange}
-            style={{border: hasError('addr1') ? '2px solid red':'none'}}
-          />
-          <input
-            className="FormInput"
-            placeholder="Address Line 2"
-            name="addr2"
-            id="addr2"
-            value={state.addr2}
-            onChange={handleChange}
-          />
+          </Select>
+          <Input placeholder="Address Line 1" name="addr1" err={err} onChange={handleChange}/>
+          <Input placeholder="Address Line 2" name="addr2" err={err} onChange={handleChange}/>
           <div className="FormDouble">
-            <input
-              className="FormHalf"
-              placeholder="City"
-              name="city"
-              id="city"
-              value={state.city}
-              onChange={handleChange}
-              style={{border: hasError('city') ? '2px solid red':'none'}}
-              />
-            <input
-              className="FormHalf"
-              placeholder="Zip"
-              name="zip"
-              id="zip"
-              value={state.zip}
-              onChange={handleChange}
-              style={{border: hasError('zip') ? '2px solid red':'none'}}
-            />
+            <Input placeholder="City" name="city" half={true} err={err} onChange={handleChange}/>
+            <Input placeholder="Zip" name="zip" half={true} err={err} onChange={handleChange}/>
           </div>
-          <select
-            className="FormSelect"
-            id="state"
-            name="state"
-            onChange={handleChangeState}
-            style={{border: hasError('state') ? '2px solid red':'none'}}
-          >
+          <Select name="state" onChange={handleChange} err={err}>
             <option value={0}>Select State</option>
             {StatesList.map(({ name, abbreviation }, idx) =>
               StateToOption({ name, abbreviation, key: idx })
             )}
-          </select>
-          <input
-            className="FormInput"
-            placeholder="Email"
-            name="email"
-            id="email"
-            value={state.email}
-            onChange={handleChange}
-            style={{border: hasError('email') ? '2px solid red':'none'}}
-          />
-          <Button text="SUBMIT" type="button" handleClick={handleVerify} />
+          </Select>
+          <Input placeholder="Email" name="email" err={err} onChange={handleChange}/>
+          <Input type="submit" className="Button-Red" onChange={handleChange}/>
         </form>
       </div>
     </>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Button = ({ text, handleClick, buttonClass }) => {
+const Button = ({ text, buttonClass, ...rest }) => {
   const [state, setState] = useState({ text: "", status: "" });
 
   useEffect(() => {
@@ -10,7 +10,7 @@ const Button = ({ text, handleClick, buttonClass }) => {
   }, [text, state]);
 
   return (
-    <button className={buttonClass ? buttonClass : "Button-Red"} onClick={() => handleClick()}>
+    <button className={buttonClass ? buttonClass : "Button-Red"} {...rest} >
       {text}
     </button>
   );

@@ -1,0 +1,63 @@
+.FormInput {
+  width: calc(46 * 1vmin);
+  margin-bottom: 0.5rem;
+  padding: 2vmin;
+  font-family: "Cormorant SC", serif;
+  font-size: calc(10px + 1vmin);
+  background-color: white;
+  outline: 2px solid white;
+  border: none;
+}
+
+.FormInput.Invalid {
+  outline: 2px solid red;
+  border: none;
+}
+
+.FormInput.FormHalf {
+  width: calc(40% - 2px);
+}
+
+//// form submit button.
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  display: inline-block;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0;
+  text-decoration: none;
+  // background: #0069ed;
+  // color: #ffffff;
+  font-family: "Cormorant SC", serif;
+  font-size: calc(10px + 1vmin);
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+html input[type="button"],
+input[type="reset"],
+input[type="submit"]:hover,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"]:focus {
+  background: #233b7b;
+  color: #e1edfb;
+}
+
+html input[type="button"],
+input[type="reset"],
+input[type="submit"]:focus {
+  outline: 1px solid #e1edfb;
+  outline-offset: -1px;
+}
+
+html input[type="button"],
+input[type="reset"],
+input[type="submit"]:active {
+  transform: scale(0.99);
+}
