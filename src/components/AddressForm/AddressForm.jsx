@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { member } from "../../atoms";
 import Joi from "joi";
 
-import STATES from "./options";
+import {STATES} from "./options";
 
 /**
  * Where should we send
