@@ -1,6 +1,9 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
-import { TitleText, BodyText, Button } from "../index";
+import TitleText from "../Common/TitleText";
+import BodyText from "../Common/BodyText";
+import Button from "../Common/Button";
+
 const PrayWithUs = () => {
   // Prayer Card (1)
   const history = useHistory();

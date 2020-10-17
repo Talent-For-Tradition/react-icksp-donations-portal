@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { TitleText, Modal, Reminder, Input, Select } from "../index";
+import TitleText from "../Common/TitleText";
+import Input from "../Common/Input";
+import Modal from "../Common/Modal";
+import Select from "../Common/Select";
+import Reminder from "../Reminder";
 import addressSchema from "./AddressSchema";
 import { useRecoilState } from "recoil";
 import { member } from "../../atoms";
