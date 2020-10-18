@@ -12,8 +12,14 @@ clone this repo
     
 install dependencies
 
+    cd react-icksp-payment-portal
     yarn install
     
 run
 
     yarn run
+
+
+build
+
+    yarn build
