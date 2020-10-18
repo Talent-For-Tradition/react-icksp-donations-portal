@@ -7,6 +7,7 @@ import Button from "../Common/Button";
 import { processDonation } from "../../integrations/donationAPI";
 import Modal from "../Common/Modal";
 import OtherAmount from "../OtherAmount";
+import { CSSTransition } from "react-transition-group";
 
 const Donations = () => {
   const [open, setOpen] = useState(false);
@@ -20,9 +21,14 @@ const Donations = () => {
   };
   return (
     <>
-      <Modal open={open}>
-        <OtherAmount close={() => setOpen(false)} processMonthlyDonation={processMonthlyDonation} />
-      </Modal>
+      <CSSTransition in={open} timeout={300} classNames="alert" unmountOnExit>
+        <Modal open={open} dismissible>
+          <OtherAmount
+            close={() => setOpen(false)}
+            processMonthlyDonation={processMonthlyDonation}
+          />
+        </Modal>
+      </CSSTransition>
       <TitleText>
         JOIN OUR FAMILY OF MONTHLY DONORS SPREADING THE REIGN OF OUR LORD JESUS
         CHRIST IN ALL SPHERES OF HUMAN LIFE.
@@ -33,32 +39,40 @@ const Donations = () => {
           <div className="container-buttons">
             <Button
               text="$20 usd/mo"
-              buttonClass={`Button-donate${donate.amount === 20 ? " active":""}`}
+              buttonClass={`Button-donate${
+                donate.amount === 20 ? " active" : ""
+              }`}
               onClick={() => handleDonate(20)}
             />
             <Button
               text="$40 usd/mo"
-              buttonClass={`Button-donate${donate.amount === 40 ? " active":""}`}
+              buttonClass={`Button-donate${
+                donate.amount === 40 ? " active" : ""
+              }`}
               onClick={() => handleDonate(40)}
             />
             <Button
               text="$60 usd/mo"
-              buttonClass={`Button-donate${donate.amount === 60 ? " active":""}`}
+              buttonClass={`Button-donate${
+                donate.amount === 60 ? " active" : ""
+              }`}
               onClick={() => handleDonate(60)}
             />
           </div>
           <div className="container-buttons">
             <Button
               text="$80 usd/mo"
-              buttonClass={`Button-donate${donate.amount === 80 ? " active":""}`}
+              buttonClass={`Button-donate${
+                donate.amount === 80 ? " active" : ""
+              }`}
               onClick={() => handleDonate(80)}
             />
             <Button
               text="Other Amount"
               buttonClass="Button-donate-other"
               onClick={() => {
-                console.log('click');
-                setDonate({...donate, amount: ''})
+                console.log("click");
+                setDonate({ ...donate, amount: "" });
                 setOpen(true);
               }}
             />

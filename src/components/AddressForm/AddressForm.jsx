@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { CSSTransition } from "react-transition-group";
+
 import TitleText from "../Common/TitleText";
 import Input from "../Common/Input";
 import Modal from "../Common/Modal";
@@ -9,7 +11,7 @@ import { useRecoilState } from "recoil";
 import { member } from "../../atoms";
 import Joi from "joi";
 
-import {STATES} from "./options";
+import { STATES } from "./options";
 
 /**
  * Where should we send
@@ -19,7 +21,6 @@ const AddressForm = () => {
   const [open, setOpen] = useState(false);
   const [state, setState] = useRecoilState(member);
   const [errorMessage, setErrorMessage] = useState(null);
-
 
   const submitForm = () => {
     // after verification
@@ -39,10 +40,10 @@ const AddressForm = () => {
 
   const handleChange = (e) => {
     e.preventDefault();
-    const [ name, value ] =  [[e.target.name], e.target.value];
-    const error = validateProperty({name, value});
+    const [name, value] = [[e.target.name], e.target.value];
+    const error = validateProperty({ name, value });
     setState({ ...state, [name]: value });
-    setErrorMessage({...errorMessage, [name]: error })
+    setErrorMessage({ ...errorMessage, [name]: error });
   };
 
   const handleVerify = (e) => {
@@ -61,42 +62,71 @@ const AddressForm = () => {
     }
   };
 
-  const err = (key) =>
-    errorMessage ? errorMessage[key]: false;
+  const err = (key) => (errorMessage ? errorMessage[key] : false);
 
   return (
     <>
-      <Modal open={open}>
-        <Reminder escape={() => setOpen(false)} />
-      </Modal>
+      <CSSTransition in={open} timeout={300} classNames="alert" unmountOnExit>
+        <Modal open={open} dismissible>
+          <Reminder escape={() => setOpen(false)} />
+        </Modal>
+      </CSSTransition>
       <div className="AddressForm">
         <TitleText>
           WHERE SHOULD WE SEND YOUR FREE MEMORARE PRAYER CARDS?
         </TitleText>
-        <form
-          id="addressForm"
-          className="BodyTextForm"
-          onSubmit={handleVerify}
-        >
-          <Input placeholder="John Smith" name="fullname" err={err} onChange={handleChange}/>
+        <form id="addressForm" className="BodyTextForm" onSubmit={handleVerify}>
+          <Input
+            placeholder="John Smith"
+            name="fullname"
+            err={err}
+            onChange={handleChange}
+          />
           <Select name="country" onChange={handleChange} err={err}>
             <option value={0}>Select Country</option>
             <option name="country" value="US">
               United States of America
             </option>
           </Select>
-          <Input placeholder="Address Line 1" name="addr1" err={err} onChange={handleChange}/>
-          <Input placeholder="Address Line 2" name="addr2" err={err} onChange={handleChange}/>
+          <Input
+            placeholder="Address Line 1"
+            name="addr1"
+            err={err}
+            onChange={handleChange}
+          />
+          <Input
+            placeholder="Address Line 2"
+            name="addr2"
+            err={err}
+            onChange={handleChange}
+          />
           <div className="FormDouble">
-            <Input placeholder="City" name="city" half={true} err={err} onChange={handleChange}/>
-            <Input placeholder="Zip" name="zip" half={true} err={err} onChange={handleChange}/>
+            <Input
+              placeholder="City"
+              name="city"
+              half={true}
+              err={err}
+              onChange={handleChange}
+            />
+            <Input
+              placeholder="Zip"
+              name="zip"
+              half={true}
+              err={err}
+              onChange={handleChange}
+            />
           </div>
           <Select name="state" onChange={handleChange} err={err}>
             <option value={0}>Select State</option>
             {STATES}
           </Select>
-          <Input placeholder="Email" name="email" err={err} onChange={handleChange}/>
-          <Input type="submit" className="Button-Red" onChange={handleChange}/>
+          <Input
+            placeholder="Email"
+            name="email"
+            err={err}
+            onChange={handleChange}
+          />
+          <Input type="submit" className="Button-Red" onChange={handleChange} />
         </form>
       </div>
     </>
