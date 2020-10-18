@@ -6,7 +6,7 @@ import { useRecoilState } from "recoil";
 
 const OtherAmount = ({ close, processMonthlyDonation }) => {
   const [donate, setDonate] = useRecoilState(donation);
-  const setAmount = (e) => setDonate({ ...donate, amount: e.target.value });
+  const setAmount = (e) => setDonate({ ...donate, amount: Number(e.target.value) });
   return (
     <>
       <div className="ModalTitle">

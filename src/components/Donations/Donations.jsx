@@ -36,24 +36,24 @@ const Donations = () => {
           <div className="container-buttons">
             <Button
               text="$20 usd/mo"
-              buttonClass="Button-donate"
+              buttonClass={`Button-donate${donate.amount === 20 ? " active":""}`}
               onClick={() => handleDonate(20)}
             />
             <Button
               text="$40 usd/mo"
-              buttonClass="Button-donate"
+              buttonClass={`Button-donate${donate.amount === 40 ? " active":""}`}
               onClick={() => handleDonate(40)}
             />
             <Button
               text="$60 usd/mo"
-              buttonClass="Button-donate"
+              buttonClass={`Button-donate${donate.amount === 60 ? " active":""}`}
               onClick={() => handleDonate(60)}
             />
           </div>
           <div className="container-buttons">
             <Button
               text="$80 usd/mo"
-              buttonClass="Button-donate"
+              buttonClass={`Button-donate${donate.amount === 80 ? " active":""}`}
               onClick={() => handleDonate(80)}
             />
             <Button
