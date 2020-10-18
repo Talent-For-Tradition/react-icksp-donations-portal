@@ -15,11 +15,11 @@ install dependencies
     cd react-icksp-payment-portal
     yarn install
     
-run
+start the development server
 
     yarn run
 
 
-build
+create an optimized production build
 
     yarn build
