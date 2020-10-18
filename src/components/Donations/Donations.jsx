@@ -1,25 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { donation, member } from "../../atoms";
 import { useRecoilState, useRecoilValue } from "recoil";
 import BodyText from "../Common/BodyText";
 import TitleText from "../Common/TitleText";
 import Button from "../Common/Button";
 import { processDonation } from "../../integrations/donationAPI";
+import Modal from "../Common/Modal";
+import OtherAmount from "../OtherAmount";
 
 const Donations = () => {
+  const [open, setOpen] = useState(false);
   const [donate, setDonate] = useRecoilState(donation);
   const person = useRecoilValue(member);
   const handleDonate = (amount) => {
     setDonate({ ...donate, amount });
   };
-  const handleOther = () => {
-    setDonate({ ...donate, amount: 0 });
-  };
+  // const handleOther = () => {
+  //   setDonate({ ...donate, amount: 0 });
+  // };
   const processMonthlyDonation = () => {
     processDonation({ person, donate });
   };
   return (
     <>
+      <Modal open={open}>
+        <OtherAmount close={() => setOpen(false)} processMonthlyDonation={processMonthlyDonation} />
+      </Modal>
       <TitleText>
         JOIN OUR FAMILY OF MONTHLY DONORS SPREADING THE REIGN OF OUR LORD JESUS
         CHRIST IN ALL SPHERES OF HUMAN LIFE.
@@ -53,7 +59,11 @@ const Donations = () => {
             <Button
               text="Other Amount"
               buttonClass="Button-donate-other"
-              onClick={() => handleOther()}
+              onClick={() => {
+                console.log('click');
+                setDonate({...donate, amount: ''})
+                setOpen(true);
+              }}
             />
           </div>
           <Button text="DONATE MONTHLY" onClick={processMonthlyDonation} />

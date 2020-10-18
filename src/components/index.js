@@ -10,6 +10,7 @@ import ThankYou from "./ThankYou";
 import Donations from "./Donations";
 import Input from "./Common/Input";
 import Select from "./Common/Select";
+import OtherAmount from "./OtherAmount";
 export {
   TitleText,
   BodyText,
@@ -22,5 +23,6 @@ export {
   ThankYou,
   Donations,
   Input,
-  Select
+  Select,
+  OtherAmount
 };

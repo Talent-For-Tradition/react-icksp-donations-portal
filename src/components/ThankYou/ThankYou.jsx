@@ -6,7 +6,7 @@ import Button from "../Common/Button";
 import { member, reminder } from "../../atoms";
 import { useRecoilValue } from "recoil";
 
-const ThankYou = ({ fullname }) => {
+const ThankYou = () => {
   // Prayer Card, Thank you page (5)
   const history = useHistory();
   const memberValue = useRecoilValue(member); // read-only
