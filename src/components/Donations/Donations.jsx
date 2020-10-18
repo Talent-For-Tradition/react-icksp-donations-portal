@@ -15,9 +15,6 @@ const Donations = () => {
   const handleDonate = (amount) => {
     setDonate({ ...donate, amount });
   };
-  // const handleOther = () => {
-  //   setDonate({ ...donate, amount: 0 });
-  // };
   const processMonthlyDonation = () => {
     processDonation({ person, donate });
   };
