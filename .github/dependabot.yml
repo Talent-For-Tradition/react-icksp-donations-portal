@@ -9,3 +9,14 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+    allow:
+      # allow updates for React and all packages starting with "react"
+      - dependency-name: "react*"
+      # allow updates for Recoil
+      - dependency-name: "recoil"
+      # allow updates for Axios
+      - dependency-name: "axios"
+      # allow updates for Joi
+      - dependency-name: "joi"
+      # allow updates for Less
+      - dependency-name: "less"
