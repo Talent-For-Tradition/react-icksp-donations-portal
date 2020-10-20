@@ -1,16 +1,17 @@
 import TitleText from "./Common/TitleText";
 import BodyText from "./Common/BodyText";
-import PrayerCard from "./PrayerCard";
-import AddressForm from "./AddressForm";
 import Button from "./Common/Button";
-import Modal from "./Common/Modal";
-import Reminder from "./Reminder";
-import MobileTextForm from "./MobileTextForm";
-import ThankYou from "./ThankYou";
-import Donations from "./Donations";
 import Input from "./Common/Input";
 import Select from "./Common/Select";
+import Modal from "./Common/Modal";
+import MobileTextForm from "./MobileTextForm";
 import OtherAmount from "./OtherAmount";
+import PrayerCard from "./PrayerCard";
+import AddressForm from "./AddressForm";
+import Reminder from "./Reminder";
+import ThankYou from "./ThankYou";
+import Donations from "./Donations";
+import { Loading, AuthButton } from "./Authority";
 export {
   TitleText,
   BodyText,
@@ -24,5 +25,7 @@ export {
   Donations,
   Input,
   Select,
-  OtherAmount
+  OtherAmount,
+  Loading,
+  AuthButton
 };
