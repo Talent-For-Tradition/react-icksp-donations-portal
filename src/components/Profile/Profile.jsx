@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -8,6 +9,7 @@ const Profile = () => {
 
   return (
     <div>
+      <NavLink to="/">home</NavLink>
       <div className="row align-items-center profile-header">
         <div className="col-md-2 mb-3">
           <img
