@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { withAuthenticationRequired, useAuth0 } from "@auth0/auth0-react";
 import { Route } from "react-router-dom";
 
+// not sure if this is necessary.
+
 export const ProtectedRoute = ({ component, ...args }) => (
   <Route component={withAuthenticationRequired(component)} {...args} />
 );
