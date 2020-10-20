@@ -5,14 +5,20 @@ import "./index.css";
 import App from "./App";
 import { RecoilRoot } from "recoil";
 import * as serviceWorker from "./serviceWorker";
+import Auth0ProviderWithHistory from "./auth/auth0-provider-with-history";
+import { createBrowserHistory } from 'history';
+
+const history = createBrowserHistory();
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <RecoilRoot>
-        <App />
-      </RecoilRoot>
-    </Router>
+      <Router history={history}>
+        <Auth0ProviderWithHistory>
+          <RecoilRoot>
+           <App />
+          </RecoilRoot>
+        </Auth0ProviderWithHistory>
+      </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
