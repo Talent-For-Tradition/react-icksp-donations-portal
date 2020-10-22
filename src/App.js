@@ -11,10 +11,10 @@ function App() {
         <img src="/crest.png" className="App-logo" alt="logo" />
       </header>
       <Switch>
-        <ProtectedRoute path="/where"  component={AddressForm} exact={true}/>
-        <ProtectedRoute path="/mobile"  component={MobileTextForm} exact={true}/>
-        <ProtectedRoute path="/thankyou"  component={ThankYou} exact={true}/>
-        <ProtectedRoute path="/donate"  component={Donations} exact={true}/>
+        <Route path="/where"  component={AddressForm} exact={true}/>
+        <Route path="/mobile"  component={MobileTextForm} exact={true}/>
+        <Route path="/thankyou"  component={ThankYou} exact={true}/>
+        <Route path="/donate"  component={Donations} exact={true}/>
         <ProtectedRoute path="/profile"  component={Profile} exact={true}/>
         <Route path="/"  component={PrayerCard} exact={true}/>
       </Switch>
