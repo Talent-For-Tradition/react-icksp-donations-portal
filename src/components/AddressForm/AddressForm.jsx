@@ -25,6 +25,7 @@ const AddressForm = () => {
   const { user } = useAuth0();
 
   const cbUpdate = useCallback(() => {
+    if (!user) return
     const { name, email } = user;
     const updateFromAuth = () => {
       let update = {};
