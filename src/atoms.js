@@ -31,4 +31,9 @@ const donation = atom({
   }
 });
 
+// const todo = atom({
+//   key: "todo",
+//   default: { redirect: "/where" }
+// })
+
 export { member, reminder, donation };

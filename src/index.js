@@ -1,25 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import { RecoilRoot } from "recoil";
 import * as serviceWorker from "./serviceWorker";
 import Auth0ProviderWithHistory from "./auth/auth0-provider-with-history";
-import { createBrowserHistory } from 'history';
+import { createBrowserHistory } from "history";
 
 const history = createBrowserHistory();
 
 ReactDOM.render(
-  <React.StrictMode>
-      <Router history={history}>
-        <Auth0ProviderWithHistory>
-          <RecoilRoot>
-           <App />
-          </RecoilRoot>
-        </Auth0ProviderWithHistory>
-      </Router>
-  </React.StrictMode>,
+  <Router history={history}>
+    <Auth0ProviderWithHistory>
+      <RecoilRoot>
+        <App />
+      </RecoilRoot>
+    </Auth0ProviderWithHistory>
+  </Router>,
   document.getElementById("root")
 );
 

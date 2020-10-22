@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { CSSTransition } from "react-transition-group";
 
 import TitleText from "../Common/TitleText";
@@ -12,6 +12,7 @@ import { member } from "../../atoms";
 import Joi from "joi";
 
 import { STATES } from "./options";
+import { useAuth0 } from "@auth0/auth0-react";
 
 /**
  * Where should we send
@@ -21,6 +22,22 @@ const AddressForm = () => {
   const [open, setOpen] = useState(false);
   const [state, setState] = useRecoilState(member);
   const [errorMessage, setErrorMessage] = useState(null);
+  const { user } = useAuth0();
+
+  const cbUpdate = useCallback(() => {
+    const { name, email } = user;
+    const updateFromAuth = () => {
+      let update = {};
+      if (!state.fullname) update["fullname"] = name;
+      if (!state.email) update["email"] = email;
+      setState({ ...state, ...update });
+    };
+    updateFromAuth();
+  }, []);// eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    cbUpdate();
+  }, [cbUpdate]);
 
   const submitForm = () => {
     // after verification
@@ -79,6 +96,7 @@ const AddressForm = () => {
           <Input
             placeholder="John Smith"
             name="fullname"
+            value={state.fullname}
             err={err}
             onChange={handleChange}
           />
@@ -123,6 +141,7 @@ const AddressForm = () => {
           <Input
             placeholder="Email"
             name="email"
+            value={state.email}
             err={err}
             onChange={handleChange}
           />
