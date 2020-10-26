@@ -8,7 +8,19 @@ import { Loading } from "../components/index";
 const ProtectedRoute = ({ component, ...args }) => (
   <Route
     component={withAuthenticationRequired(component, {
-      onRedirecting: () => <Loading />,
+      onRedirecting: () => (
+        <>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <Loading />
+          </div>
+        </>
+      )
     })}
     {...args}
   />
