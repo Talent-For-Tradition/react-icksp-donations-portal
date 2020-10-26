@@ -12,6 +12,7 @@ import Reminder from "./Reminder";
 import ThankYou from "./ThankYou";
 import Donations from "./Donations";
 import { Loading, AuthButton } from "./Authority";
+import Checkout from "./Checkout";
 export {
   TitleText,
   BodyText,
@@ -27,5 +28,6 @@ export {
   Select,
   OtherAmount,
   Loading,
-  AuthButton
+  AuthButton,
+  Checkout
 };

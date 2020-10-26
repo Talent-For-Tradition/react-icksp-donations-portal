@@ -1,5 +1,8 @@
 import axios from "axios"; // https://github.com/axios/axios
 
+// Stripe https://youtu.be/w1oLdAPyuok?t=1280
+// https://github.com/tmarek-stripe/demo-react-stripe-js/blob/master/pages/api/payment_intents.js
+
 const api = axios.create({
   baseURL: "https://icksp-example-domain.com/api/", // todo
   timeout: 1000,

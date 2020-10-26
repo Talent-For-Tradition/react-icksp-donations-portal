@@ -1,23 +1,25 @@
 import React, { useState } from "react";
-import { donation, member } from "../../atoms";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { donation } from "../../atoms";
+import { useRecoilState } from "recoil";
 import BodyText from "../Common/BodyText";
 import TitleText from "../Common/TitleText";
 import Button from "../Common/Button";
-import { processDonation } from "../../integrations/donationAPI";
+// import { processDonation } from "../../integrations/donationAPI";
 import Modal from "../Common/Modal";
 import OtherAmount from "../OtherAmount";
 import { CSSTransition } from "react-transition-group";
-
+import { useHistory } from "react-router-dom";
 const Donations = () => {
+  const history = useHistory();
   const [open, setOpen] = useState(false);
   const [donate, setDonate] = useRecoilState(donation);
-  const person = useRecoilValue(member);
+  // const person = useRecoilValue(member);
   const handleDonate = (amount) => {
     setDonate({ ...donate, amount });
   };
   const processMonthlyDonation = () => {
-    processDonation({ person, donate });
+    // processDonation({ person, donate });
+    history.push('/checkout')
   };
   return (
     <>
