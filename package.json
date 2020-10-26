@@ -17,7 +17,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.4",
     "react-transition-group": "^4.4.1",
-    "recoil": "^0.0.13"
+    "recoil": "^0.0.13",
+    "stripe": "^8.117.0"
   },
   "scripts": {
     "graph": "npx madge --image src/graph.svg src/index.js",

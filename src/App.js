@@ -1,7 +1,8 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import { PrayerCard, AddressForm, MobileTextForm, ThankYou, Donations } from "./components";
+import { PrayerCard, AddressForm, MobileTextForm, ThankYou, Donations, Checkout } from "./components";
 import ProtectedRoute from "./auth/protected-route";
+
 import Profile from './components/Profile';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/mobile"  component={MobileTextForm} exact={true}/>
         <Route path="/thankyou"  component={ThankYou} exact={true}/>
         <Route path="/donate"  component={Donations} exact={true}/>
+        <ProtectedRoute path="/checkout" component={() => <Checkout open={true} close={()=>console.log('todo')}/>} exact={true}/>
         <ProtectedRoute path="/profile"  component={Profile} exact={true}/>
         <Route path="/"  component={PrayerCard} exact={true}/>
       </Switch>
