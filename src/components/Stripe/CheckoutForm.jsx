@@ -41,22 +41,22 @@ const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
 
     const cardElement = elements.getElement("card");
     try {
-        // create a payment intent on the server
-        // client secret of that payment intent.
+      // create a payment intent on the server
+      // client secret of that payment intent.
       const { data: clientSecret } = await axios.post("/api/payment_intents", {
         amount: donate.amount * 100
         // TIP Stripe, amount is lowest common denomination
         // ie. 1 cent multiplied by 100 is 1 dollar.
       });
       console.log(clientSecret);
-      
-    //    // ref to cardElement
-    // stripe.js
-    // create a payment method
 
-    // confirm card payments
-    // payment method id
-    // client_secret
+      //    // ref to cardElement
+      // stripe.js
+      // create a payment method
+
+      // confirm card payments
+      // payment method id
+      // client_secret
 
       const paymentMethodReq = await stripe.createPaymentMethod({
         type: "card",
@@ -100,7 +100,7 @@ const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
 
   const iframeStyles = {
     base: {
-      color: "#fff",
+      // color: "#fff",
       fontSize: "16px",
       iconColor: "#fff",
       "::placeholder": {
@@ -141,9 +141,8 @@ const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
         <Button
           className="form-submit-button"
           disabled={isProcessing || !stripe}
-        >
-          {isProcessing ? "Processing..." : `Pay $${price}`}
-        </Button>
+          text={isProcessing ? "Processing..." : `Pay $${price}`}
+        />
       </div>
     </form>
   );
