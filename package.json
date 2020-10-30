@@ -17,7 +17,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "react-transition-group": "^4.4.1",
-    "recoil": "^0.0.13",
+    "recoil": "^0.1.1",
     "stripe": "^8.117.0"
   },
   "scripts": {
