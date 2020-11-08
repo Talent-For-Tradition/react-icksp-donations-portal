@@ -44,7 +44,7 @@ export const useApi = (url, options = {}) => {
         });
       }
     })();
-  }, [refreshIndex]);
+  }, [refreshIndex]);//eslint-disable-line
 
   return {
     ...state,
