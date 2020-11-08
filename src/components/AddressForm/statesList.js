@@ -1,4 +1,4 @@
-export default [
+const stateArray =  [
   {
       "name": "Alabama",
       "abbreviation": "AL"
@@ -236,3 +236,5 @@ export default [
       "abbreviation": "WY"
   }
 ]
+
+export default stateArray;
