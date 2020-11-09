@@ -10,7 +10,12 @@ module.exports = {
 };
 
 function add(donation) {
-  return db("donations").insert(donation, "id");
+  const o = Object(donation);
+  if (o.id === null) {
+    delete o["id"]
+    return db("donations").insert(o, "id");
+  }
+  console.log("donation with id " + o.id + "exists... todo: update")
 }
 
 function remove(id) {
