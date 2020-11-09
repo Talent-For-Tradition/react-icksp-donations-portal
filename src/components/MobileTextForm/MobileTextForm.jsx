@@ -26,7 +26,7 @@ const MobileTextForm = () => {
     console.log(member_id)
     reminderByMember(member_id)
     .then(oldReminder => {
-      if (oldReminder.id) {
+      if (oldReminder && oldReminder.id) {
         setState({ ...oldReminder})
       } else {
         setState({...state, member_id})
