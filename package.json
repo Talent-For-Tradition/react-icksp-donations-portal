@@ -24,6 +24,7 @@
   },
   "scripts": {
     "graph": "npx madge --image src/graph.svg src/index.js",
+    "graph-api": "npx madge --image src/integrations/api/api-code-graph.svg src/integrations/api/index.js",
     "style": "lessc src/index.less src/index.css",
     "start": "yarn style && react-scripts start",
     "build": "yarn style && react-scripts build",
