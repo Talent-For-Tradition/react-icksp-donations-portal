@@ -73,9 +73,9 @@ async function newReminder(reminder) {
   const oldReminder = await reminderByMember(reminder.member_id);
   if (!oldReminder) {
     try {
-      const [id] = await api.post("/reminders", reminder);
-      console.log(id);
-      return id;
+      const result = await api.post("/reminders", reminder);
+      console.log(result);
+      return result.len > 0 ? result[0]:result;
     } catch (err) {
       console.log("failed to add new reminder", err);
       return false;
@@ -101,8 +101,7 @@ async function processDonation(donation) {
   }
 }
 async function updateDonation(donation) {
-  console.log('update member donation');
-
+  console.log('TODO: Update donation');
 }
 export {
   processDonation,
