@@ -19,6 +19,7 @@ jobs:
         REACT_APP_AUTH0_DOMAIN: ${{ secrets.REACT_APP_AUTH0_DOMAIN }}
         REACT_APP_STRIPE_PK: ${{ secrets.REACT_APP_AUTH0_DOMAIN }}
         REACT_APP_STRIPE_SK: ${{ secrets.REACT_APP_AUTH0_DOMAIN }}
+        TEST_ENVIRONMENT: ${{ secrets.TEST_ENVIRONMENT }}
     - run: npm install -G yarn
     - run: yarn install
     - run: yarn test

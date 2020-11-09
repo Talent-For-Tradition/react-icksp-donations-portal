@@ -5,29 +5,29 @@ import App from "./App";
 
 // testing basic rendering of the App
 
-test("includes our Lord Jesus Christ", async function() {
+test("includes our Lord Jesus Christ", async function () {
   try {
-    const {getByText} = await render(<App />, {wrapper: MemoryRouter});
+    const { getByText } = await render(<App />, { wrapper: MemoryRouter });
     expect(getByText(/our Lord Jesus Christ/i)).toBeInTheDocument();
   } catch {
-    throw(Error('bad test?'))
+    throw Error("bad test?");
   }
 });
 
-test("logo exists", async function() {
+test("logo exists", async function () {
   try {
-    const {getByAltText} = await render(<App />, {wrapper: MemoryRouter});
+    const { getByAltText } = await render(<App />, { wrapper: MemoryRouter });
     expect(getByAltText(/logo/i)).toBeInTheDocument();
   } catch {
-    throw(Error('bad test?'))
+    throw Error("bad test?");
   }
-})
+});
 
-test("logo source file is crest.png", async function() {
+test("logo source file is crest.png", async function () {
   try {
-    const {getByAltText} = await render(<App />, {wrapper: MemoryRouter});
-    expect(getByAltText(/logo/i).src.split('/').pop()).toEqual('crest.png')
+    const { getByAltText } = await render(<App />, { wrapper: MemoryRouter });
+    expect(getByAltText(/logo/i).src.split("/").pop()).toEqual("crest.png");
   } catch {
-    throw(Error())
+    throw Error();
   }
-})
+});
