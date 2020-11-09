@@ -1,6 +1,7 @@
 // stripe-ware. https://stripe.com/docs/legacy-checkout/express#step-1-install-dependencies
 const keySecret = process.env.SECRET_KEY;
 const stripe = require("stripe")(keySecret);
+const { filterExtra } = require("./shared");
 
 // database models.
 const { members, reminders, donations } = require("./models");
@@ -9,7 +10,7 @@ const { members, reminders, donations } = require("./models");
 const router = require("express").Router();
 
 router.get("/", (req, res) => {
-  res.status(200).send('¡Viva Cristo Rey!')
+  res.status(200).send("¡Viva Cristo Rey!");
 });
 router.get("/members", (req, res) => {
   members
@@ -64,29 +65,41 @@ router.post("/reminders", async (req, res) => {
   try {
     const result = await reminders.add(reminder);
     res.status(200).json(result);
-  } catch(err) {
+  } catch (err) {
     res.status(400).json(err);
   }
-})
+});
 
 router.get("/reminders/:id", async (req, res) => {
   const id = req.params.id;
-  try{
+  try {
     const reminder = await reminders.findById(id);
-    res.status(200).json(reminder)
+    res.status(200).json(reminder);
   } catch (err) {
     res.status(500).json(err);
   }
-})
+});
+
+router.put("/reminders/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const original = await reminders.findById(id);
+    const data = Object(req.body);
+    // res.status(200).json(reminder);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 router.get("/reminders/member/:member_id", async (req, res) => {
   const member_id = req.params.member_id;
   try {
-    const reminder = await reminders.findBy({ member_id })
-    res.status(200).json(reminder)
+    const reminder = await reminders.findBy({ member_id });
+    res.status(200).json(reminder);
   } catch (err) {
     res.status(500).json(err);
   }
-})
+});
 router.post("/donations", (req, res) => {
   const donation = Object(req.body); // verify this before continuing.
   if (!donation.amount) {
@@ -98,31 +111,51 @@ router.post("/donations", (req, res) => {
       .catch((err) => res.status(500).json(err));
   }
 });
-router.get("/donations/member/:member_id", async (req, res) => {
-  const member_id = req.params.member_id;
+
+router.put("/donations/:id", async (req, res) => {
+  const donation_id = Number(req.params.id);
+  const data = Object(req.body); // verify this before continuing.
+  if (donation_id !== data.id) {
+    res.status(403).send("mismatch");
+  }
+  // console.log("put donation", data.id);
+  const original = await donations.findById(donation_id);
+  // console.log(original)
+  const updates = filterExtra(original, data);
   try {
-    const reminder = await donations.findBy({ member_id })
-    res.status(200).json(reminder)
+    const result = await donations.updateById(updates, donation_id);
+    res.status(200).json(result);
   } catch (err) {
     res.status(500).json(err);
   }
-})
+});
 
+router.get("/donations/member/:member_id", async (req, res) => {
+  const member_id = req.params.member_id;
+  try {
+    const reminder = await donations.findBy({ member_id });
+    res.status(200).json(reminder);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 router.post("/charge", (req, res) => {
   let amount = 500;
-  stripe.customers.create({
-     email: req.body.stripeEmail,
-    source: req.body.stripeToken
-  })
-  .then(customer =>
-    stripe.charges.create({
-      amount,
-      description: "Sample Charge",
-         currency: "usd",
-         customer: customer.id
-    }))
-  .then(charge => res.render("charge.pug"));
+  stripe.customers
+    .create({
+      email: req.body.stripeEmail,
+      source: req.body.stripeToken
+    })
+    .then((customer) =>
+      stripe.charges.create({
+        amount,
+        description: "Sample Charge",
+        currency: "usd",
+        customer: customer.id
+      })
+    )
+    .then((charge) => res.render("charge.pug"));
 });
 
 module.exports = router;

@@ -90,7 +90,7 @@ async function newReminder(reminder) {
 
 async function processDonation(donation) {
   console.log(`id ${donation.member_id} amount $${donation.amount}`);
-  console.log(donation);
+  // console.log(donation);
   try {
     const endpoint = await api.post("/donations", donation);
     const [id] = endpoint.data;
@@ -101,8 +101,18 @@ async function processDonation(donation) {
   }
 }
 async function updateDonation(donation) {
-  console.log('TODO: Update donation');
+  // console.log('TODO: Update donation');
+  const path = "/donations/" + donation.id;
+  try {
+    const endpoint = await api.put(path, donation);
+    // console.log("endpoint", endpoint);
+    return endpoint.data
+  } catch (err) {
+    console.log("error, ", err);
+    return false
+  }
 }
+
 export {
   processDonation,
   newMember,

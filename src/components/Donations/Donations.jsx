@@ -18,6 +18,9 @@ const Donations = () => {
   useEffect(() => {
     donationByMember(member_id).then(oldDonation => {
       if (oldDonation && oldDonation.id) {
+        // console.log('old donation found', oldDonation)
+        delete oldDonation['created_at'];
+        delete oldDonation['member_id'];
         setDonate(oldDonation)
       }
     })
@@ -85,7 +88,7 @@ const Donations = () => {
               text="Other Amount"
               buttonClass="Button-donate-other"
               onClick={() => {
-                console.log("click");
+                // console.log("click");
                 setDonate({ ...donate, amount: "" });
                 setOpen(true);
               }}

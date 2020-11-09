@@ -1,9 +1,11 @@
 WARNING: here there be CommonJS-style imports!
 
 #
-
-to serve this API:
+![api dependency graph](api-code-graph.svg)
+#
+to serve this API, run:
 
     
     yarn serve
     
+
