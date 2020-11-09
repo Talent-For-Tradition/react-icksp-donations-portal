@@ -4,8 +4,7 @@ exports.up = function (knex) {
     tbl.integer("member_id").unsigned();
     tbl.foreign("member_id").references("members.id");
 
-    tbl.string("mobile").notNullable();;
-    tbl.unique("mobile");
+    tbl.string("mobile").notNullable().unique("mobile");
 
     tbl.string("hour", 255).notNullable();
 
