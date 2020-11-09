@@ -28,7 +28,8 @@
     "style": "lessc src/index.less src/index.css",
     "start": "yarn style && react-scripts start",
     "build": "yarn style && react-scripts build",
-    "test": "yarn style && react-scripts test",
+    "run-react-tests": "yarn style && react-scripts test",
+    "test": "TEST_ENVIRONMENT=1 yarn run-react-tests",
     "serve": "npx nodemon src/integrations/api",
     "knex": "npx knex --cwd src/integrations/api/payments",
     "eject": "react-scripts eject"
