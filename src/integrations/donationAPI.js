@@ -1,9 +1,9 @@
-import axios from "axios"; // https://github.com/axios/axios
+import axios from "axios";
 
-// Stripe https://youtu.be/w1oLdAPyuok?t=1280
-// https://github.com/tmarek-stripe/demo-react-stripe-js/blob/master/pages/api/payment_intents.js
+// these functions call the API to store member information.
 
-const api = axios.create({
+const api = new axios.create({
+  // preload with api headers & url
   baseURL: "http://localhost:5000/api",
   timeout: 1000,
   headers: { "X-Custom-Header": "foobar" }
