@@ -15,7 +15,7 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '12'
-    - run: npm install -G yarn
+    - run: npm install -G yarn && rm package-lock.json
     - run: yarn install
     - run: yarn test
 # Setup any custom deployment steps here.
