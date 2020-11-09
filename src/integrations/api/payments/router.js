@@ -1,11 +1,15 @@
-// const reminders = require("./models/reminders");
-// const donations = require("./models/donations");
+// stripe-ware. https://stripe.com/docs/legacy-checkout/express#step-1-install-dependencies
+const keySecret = process.env.SECRET_KEY;
+const stripe = require("stripe")(keySecret);
+
+// database models.
 const { members, reminders, donations } = require("./models");
 
+// /api
 const router = require("express").Router();
 
 router.get("/", (req, res) => {
-  res.status(200).send("api-router");
+  res.status(200).send('¡Viva Cristo Rey!')
 });
 router.get("/members", (req, res) => {
   members
@@ -14,6 +18,7 @@ router.get("/members", (req, res) => {
       all_members.map((m) => ({ id: m.id, member: m.fullname }))
     );
 });
+
 router.post("/members", (req, res) => {
   console.log("posting to /members");
   const member = Object(req.body); // verify this before continuing.
@@ -62,8 +67,6 @@ router.post("/reminders", async (req, res) => {
   } catch(err) {
     res.status(400).json(err);
   }
-    // .then((result) => res.status(200).json(result))
-    // .catch((err) => res.status(500).json(err));
 })
 
 router.get("/reminders/:id", async (req, res) => {
@@ -84,7 +87,17 @@ router.get("/reminders/member/:member_id", async (req, res) => {
     res.status(500).json(err);
   }
 })
-
+router.post("/donations", (req, res) => {
+  const donation = Object(req.body); // verify this before continuing.
+  if (!donation.amount) {
+    res.status(404);
+  } else {
+    donations
+      .add(donation)
+      .then((result) => res.status(200).json(result))
+      .catch((err) => res.status(500).json(err));
+  }
+});
 router.get("/donations/member/:member_id", async (req, res) => {
   const member_id = req.params.member_id;
   try {
@@ -95,18 +108,21 @@ router.get("/donations/member/:member_id", async (req, res) => {
   }
 })
 
-router.post("/donations", (req, res) => {
-  // console.log("posting to /donations");
-  const donation = Object(req.body); // verify this before continuing.
-  // console.log(donation);
-  if (!donation.amount) {
-    res.status(404);
-  } else {
-    donations
-      .add(donation)
-      .then((result) => res.status(200).json(result))
-      .catch((err) => res.status(500).json(err));
-  }
+
+router.post("/charge", (req, res) => {
+  let amount = 500;
+  stripe.customers.create({
+     email: req.body.stripeEmail,
+    source: req.body.stripeToken
+  })
+  .then(customer =>
+    stripe.charges.create({
+      amount,
+      description: "Sample Charge",
+         currency: "usd",
+         customer: customer.id
+    }))
+  .then(charge => res.render("charge.pug"));
 });
 
 module.exports = router;
