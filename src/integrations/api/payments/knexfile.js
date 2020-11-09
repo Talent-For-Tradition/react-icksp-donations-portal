@@ -3,13 +3,20 @@
 module.exports = {
 
   development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './dev.sqlite3'
+    client: "pg",
+    connection: "postgresql://icksp:logos@localhost:5432/icksp",
+    pool: {
+      min: 2,
+      max: 10
     },
-    useNullAsDefault: true
+    migrations: {
+      directory: "./database/migrations",
+      tableName: "knex_migrations"
+    },
+    // seeds: {
+    //   directory: "./database/seeds"
+    // }
   },
-
   staging: {
     client: 'postgresql',
     connection: {

@@ -13,8 +13,8 @@ exports.up = function(knex) {
       .notNullable();
     tbl.integer("week")
       .notNullable();
-    tbl.timestamp('firstdonation');
-    tbl.timestamp('lastdonation');
+    tbl.string("firstdonation", 255);
+    tbl.string("lastdonation", 255);
   })
 };
 

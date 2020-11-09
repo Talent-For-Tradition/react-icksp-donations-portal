@@ -6,9 +6,9 @@ exports.up = function (knex) {
     tbl.string("addr1", 255).notNullable();
     tbl.string("addr2", 255);
     tbl.string("city", 255).notNullable();
+    tbl.string("zip", 255).notNullable();
     tbl.string("state", 255).notNullable();
-    tbl.string("email", 255);
-    tbl.unique("email");
+    tbl.string("email", 255).unique();
     tbl.timestamp("created_at").defaultTo(knex.fn.now());
   });
 };

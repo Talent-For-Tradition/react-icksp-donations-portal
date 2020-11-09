@@ -4,7 +4,6 @@ import TitleText from "../Common/TitleText";
 import BodyText from "../Common/BodyText";
 import Button from "../Common/Button";
 import { useAuth0 } from "@auth0/auth0-react";
-
 const PrayWithUs = () => {
   const { isAuthenticated, loginWithRedirect } = useAuth0();
   // Prayer Card (1)

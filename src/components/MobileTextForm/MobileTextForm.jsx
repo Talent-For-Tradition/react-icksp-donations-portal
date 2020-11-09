@@ -1,5 +1,5 @@
-import React from "react";
-import { useRecoilState } from "recoil";
+import React, {useEffect} from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useHistory } from "react-router-dom";
 
 import Button from "../Common/Button";
@@ -8,9 +8,10 @@ import TitleText from "../Common/TitleText";
 import Select from "../Common/Select";
 
 import schema from "./MobileSchema";
-import { reminder } from "../../atoms";
+import { reminder, member } from "../../atoms";
+import { newReminder, reminderByMember } from "../../integrations/donationAPI";
 
-import { HOURS, TIMEZONES, hourToOption, tzToOption } from './options';
+import { HOURS, TIMEZONES, hourToOption, tzToOption } from "./options";
 
 /**
  * send my daily reminder at...
@@ -18,10 +19,37 @@ import { HOURS, TIMEZONES, hourToOption, tzToOption } from './options';
 const MobileTextForm = () => {
   // Prayer Card, daily reminder (4)
   const [state, setState] = useRecoilState(reminder);
+  const {id: member_id} = useRecoilValue(member);
   const history = useHistory();
-  const handleVerify = () => {
-    const { error } = schema.validate(state);
-    error ? console.log(error) : history.push("/thankyou"); // replace with call to API
+  
+  useEffect(() => {
+    console.log(member_id)
+    reminderByMember(member_id)
+    .then(oldReminder => {
+      if (oldReminder.id) {
+        setState({ ...oldReminder})
+      } else {
+        setState({...state, member_id})
+      }
+    })
+  }, [member_id]) // eslint-disable-line
+
+  const handleVerify = async () => {
+    const fields = { ...state };
+    delete fields["id"];
+    delete fields["member_id"];
+    const { error } = schema.validate(fields);
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("creating new reminder...");
+      try {
+        await newReminder({ ...fields, member_id });
+        history.push("/thankyou");
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
   const handleChange = (e) => {
     e.preventDefault();

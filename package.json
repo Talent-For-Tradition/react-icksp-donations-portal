@@ -26,6 +26,8 @@
     "start": "yarn style && react-scripts start",
     "build": "yarn style && react-scripts build",
     "test": "yarn style && react-scripts test",
+    "serve": "npx nodemon src/integrations/api",
+    "knex": "npx knex --cwd src/integrations/api/payments",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -44,6 +46,12 @@
     ]
   },
   "devDependencies": {
-    "less": "^3.12.2"
+    "cors": "^2.8.5",
+    "helmet": "^4.2.0",
+    "knex": "^0.21.12",
+    "less": "^3.12.2",
+    "nodemon": "^2.0.6",
+    "pg": "^8.4.2",
+    "sqlite3": "^5.0.0"
   }
 }

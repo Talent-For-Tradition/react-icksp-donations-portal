@@ -9,6 +9,8 @@ import Reminder from "../Reminder";
 import addressSchema from "./AddressSchema";
 import { useRecoilState } from "recoil";
 import { member } from "../../atoms";
+import { newMember, memberByEmail } from "../../integrations/donationAPI";
+
 import Joi from "joi";
 
 import { STATES } from "./options";
@@ -25,24 +27,41 @@ const AddressForm = () => {
   const { user } = useAuth0();
 
   const cbUpdate = useCallback(() => {
-    if (!user) return
+    if (!user) return;
     const { name, email } = user;
-    const updateFromAuth = () => {
+    const updateFromAuth = async () => {
+      const result = await memberByEmail(email);
       let update = {};
       if (!state.fullname) update["fullname"] = name;
       if (!state.email) update["email"] = email;
-      setState({ ...state, ...update });
+      // exampleCall();
+      console.log(result);
+      if (result.fullname) update["fullname"] = result.fullname;
+      update["id"] = result.id;
+      update["email"] = result.email ? result.email:email;
+      update["addr1"] = result.addr1;
+      update["addr2"] = result.addr2 ? result.addr2: " ";
+      update["city"] = result.city;
+      update["country"] = result.country;
+      update["state"] = result.state;
+      update["zip"] = result.zip;
+      console.log("update: ", update);
+      setState({ ...update });
     };
     updateFromAuth();
-  }, []);// eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     cbUpdate();
   }, [cbUpdate]);
 
-  const submitForm = () => {
+  const submitForm = async () => {
     // after verification
-    setOpen(true); // open reminder modal
+    // update the backend
+    const id = await newMember(state);
+    console.log(id);
+    setState({...state, id });
+    setOpen(true);
   };
   /**
    * validate a single property.
@@ -59,9 +78,11 @@ const AddressForm = () => {
   const handleChange = (e) => {
     e.preventDefault();
     const [name, value] = [[e.target.name], e.target.value];
-    const error = validateProperty({ name, value });
+    if (value.name !== 'addr2') {
+      const error = validateProperty({ name, value });
+      setErrorMessage({ ...errorMessage, [name]: error });
+    }
     setState({ ...state, [name]: value });
-    setErrorMessage({ ...errorMessage, [name]: error });
   };
 
   const handleVerify = (e) => {
@@ -69,9 +90,14 @@ const AddressForm = () => {
     e.preventDefault();
     console.log("submitted");
     const schema = Joi.object(addressSchema);
-    const { error } = schema.validate(state, { abortEarly: false });
+    const fields = { ...state };
+    delete fields["id"];
+    delete fields["addr2"];
+    const { error } = schema.validate(fields, { abortEarly: false });
     if (!error) {
       submitForm();
+    } else {
+      console.log(error);
     }
     const errors = {};
     if (error && error.details) {
@@ -101,7 +127,12 @@ const AddressForm = () => {
             err={err}
             onChange={handleChange}
           />
-          <Select name="country" onChange={handleChange} err={err}>
+          <Select
+            name="country"
+            onChange={handleChange}
+            err={err}
+            value={state.country}
+          >
             <option value={0}>Select Country</option>
             <option name="country" value="US">
               United States of America
@@ -112,12 +143,14 @@ const AddressForm = () => {
             name="addr1"
             err={err}
             onChange={handleChange}
+            value={state.addr1}
           />
           <Input
             placeholder="Address Line 2"
             name="addr2"
             err={err}
             onChange={handleChange}
+            value={state.addr2}
           />
           <div className="FormDouble">
             <Input
@@ -126,6 +159,7 @@ const AddressForm = () => {
               half={true}
               err={err}
               onChange={handleChange}
+              value={state.city}
             />
             <Input
               placeholder="Zip"
@@ -133,9 +167,15 @@ const AddressForm = () => {
               half={true}
               err={err}
               onChange={handleChange}
+              value={state.zip}
             />
           </div>
-          <Select name="state" onChange={handleChange} err={err}>
+          <Select
+            name="state"
+            onChange={handleChange}
+            err={err}
+            value={state.state}
+          >
             <option value={0}>Select State</option>
             {STATES}
           </Select>
