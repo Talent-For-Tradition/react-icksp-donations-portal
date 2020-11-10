@@ -1,8 +1,15 @@
 import axios from "axios";
-import { filterExtra } from "./api/payments/shared";
-
 // these functions call the API to store member information.
-
+function filterExtra(a, b) {
+  const d0 = {...a, ...b };
+  const o = {};
+  // return a clean copy
+  Object.keys(a).forEach(key => {
+    // include original keys
+    o[key] = d0[key]
+  });
+  return o;
+}
 const api = new axios.create({
   // preload with api headers & url
   baseURL: "http://localhost:5000/api",
