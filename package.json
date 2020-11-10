@@ -1,14 +1,14 @@
 {
   "name": "icksp-payment-portal-frontend",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
-    "@auth0/auth0-react": "^1.1.0",
+    "@auth0/auth0-react": "^1.2.0",
     "@stripe/react-stripe-js": "^1.1.2",
-    "@stripe/stripe-js": "^1.10.0",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.7",
+    "@stripe/stripe-js": "^1.11.0",
+    "@testing-library/jest-dom": "^5.11.5",
+    "@testing-library/react": "^11.1.1",
+    "@testing-library/user-event": "^12.2.0",
     "axios": "^0.21.0",
     "body-parser": "^1.19.0",
     "joi": "^17.3.0",
@@ -20,7 +20,7 @@
     "react-scripts": "4.0.0",
     "react-transition-group": "^4.4.1",
     "recoil": "^0.1.2",
-    "stripe": "^8.117.0"
+    "stripe": "^8.121.0"
   },
   "scripts": {
     "graph": "npx madge --image src/graph.svg src/index.js",
