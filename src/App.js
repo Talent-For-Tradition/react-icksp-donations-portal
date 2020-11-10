@@ -1,4 +1,5 @@
 import React from "react";
+import {useHistory} from "react-router-dom";
 import { Switch, Route } from "react-router-dom";
 import {
   PrayerCard,
@@ -13,6 +14,7 @@ import ProtectedRoute from "./auth/protected-route";
 import Profile from "./components/Profile";
 
 function App() {
+  const history = useHistory();
   return (
     <div className="App">
       <header className="App-header">
@@ -47,7 +49,7 @@ function App() {
           <ProtectedRoute
             path="/checkout"
             component={() => (
-              <Checkout open={true} close={() => console.log("todo")} />
+              <Checkout open={true} close={() => history.push("/profile")} />
             )}
             exact={true}
           />
