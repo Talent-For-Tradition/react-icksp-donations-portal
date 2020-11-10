@@ -32,6 +32,7 @@
     "test": "TEST_ENVIRONMENT=1 yarn run-react-tests",
     "serve": "npx nodemon src/integrations/api",
     "knex": "npx knex --cwd src/integrations/api/payments",
+    "develop": "npx concurrently \"yarn serve\" \"yarn start\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -50,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^5.3.0",
     "cors": "^2.8.5",
     "helmet": "^4.2.0",
     "knex": "^0.21.12",

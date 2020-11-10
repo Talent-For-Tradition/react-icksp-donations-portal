@@ -25,3 +25,12 @@ start the app
 create an optimized production build
 
     yarn build
+
+
+#
+
+during development, you may wish to run the app & api concurrently.
+
+to do so without opening another window,
+
+    yarn develop
