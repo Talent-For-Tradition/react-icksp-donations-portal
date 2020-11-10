@@ -38,6 +38,7 @@ REACT_APP_STRIPE_PK=
 REACT_APP_STRIPE_SK=
 BASE_URL=https://localhost:5000
 SECRET_KEY=
+DATABASE=postgresql://icksp:logos@localhost:5432/icksp
 ```
 - find the missing values @ Auth0 and Stripe
 - SECRET_KEY is REACT_APP_STRIPE_SK
