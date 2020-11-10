@@ -81,12 +81,17 @@ router.get("/reminders/:id", async (req, res) => {
 });
 
 router.put("/reminders/:id", async (req, res) => {
-  const id = req.params.id;
+  const id = Number(req.params.id);
+  const data = Object(req.body);
+  // console.log(data);
   try {
     const original = await reminders.findById(id);
-    const data = Object(req.body);
-    // res.status(200).json(reminder);
+    // console.log(original);
+    const updates = filterExtra(original, data);
+    const result = await reminders.updateById(updates, id);
+    res.status(200).json(result);
   } catch (err) {
+    // console.log(err)
     res.status(500).json(err);
   }
 });
@@ -140,54 +145,26 @@ router.get("/donations/member/:member_id", async (req, res) => {
   }
 });
 
-router.post("/charge", (req, res) => {
-  let amount = 500;
-  stripe.customers
-    .create({
-      email: req.body.stripeEmail,
-      source: req.body.stripeToken
-    })
-    .then((customer) =>
-      stripe.charges.create({
-        amount,
-        description: "Sample Charge",
-        currency: "usd",
-        customer: customer.id
-      })
-    )
-    .then((charge) => res.render("charge.pug"));
+router.post("/charge", async (req, res) => {
+  try {
+    const { email, amount } = req.body;
+    const member = await members.findBy({ email }).first();
+    // console.log('member', member)
+    const donation = await donations.findBy({member_id: member.id}).first();
+    // console.log('donation', donation)
+    // console.log('compare amount to donation', amount, donation.amount);
+    if (amount === donation.amount) {
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: amount * 100, // TIP Stripe, amount is lowest common denomination
+        currency: "usd"
+      });
+      res.status(200).send(paymentIntent.client_secret);
+    } else {
+      res.status(403).send("amount differs. what's going on?")
+    }
+  } catch (err) {
+    res.status(500).json({ statusCode: 500, message: err.message });
+  }
 });
 
 module.exports = router;
-
-// import Stripe from "stripe";
-
-// const stripe = new Stripe(process.env.SECRET_KEY);
-
-// const postPayment = async (req, res) => {
-//   if (req.method === "POST") {
-//     try {
-//       const { amount } = req.body;
-//       // Psst. For production-ready applications we recommend not using the
-//       // amount directly from the client without verifying it first. This is to
-//       // prevent bad actors from changing the total amount on the client before
-//       // it gets sent to the server. A good approach is to send the quantity of
-//       // a uniquely identifiable product and calculate the total price server-side.
-//       // Then, you would only fulfill orders using the quantity you charged for.
-
-//       const paymentIntent = await stripe.paymentIntents.create({
-//         amount,
-//         currency: "usd"
-//       });
-
-//       res.status(200).send(paymentIntent.client_secret);
-//     } catch (err) {
-//       res.status(500).json({ statusCode: 500, message: err.message });
-//     }
-//   } else {
-//     res.setHeader("Allow", "POST");
-//     res.status(405).end("Method Not Allowed");
-//   }
-// };
-
-// export default postPayment;

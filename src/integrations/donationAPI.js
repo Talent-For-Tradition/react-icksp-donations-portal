@@ -1,4 +1,5 @@
 import axios from "axios";
+import { filterExtra } from "./api/payments/shared";
 
 // these functions call the API to store member information.
 
@@ -75,17 +76,17 @@ async function newReminder(reminder) {
     try {
       const result = await api.post("/reminders", reminder);
       console.log(result);
-      return result.len > 0 ? result[0]:result;
+      return result.len > 0 ? result[0] : result;
     } catch (err) {
       console.log("failed to add new reminder", err);
       return false;
     }
   }
-  const updates = Object.keys(reminder).filter(
-    (key) => reminder[key] !== oldReminder[key]
-  );
-  console.log("updates: ", updates);
-  return oldReminder.id;
+  console.log("updating...");
+  const updates = filterExtra(oldReminder, reminder);
+  const path = "/reminders/" + oldReminder.id;
+  const result = await api.put(path, updates);
+  return result;
 }
 
 async function processDonation(donation) {
@@ -106,19 +107,33 @@ async function updateDonation(donation) {
   try {
     const endpoint = await api.put(path, donation);
     // console.log("endpoint", endpoint);
-    return endpoint.data
+    return endpoint.data;
   } catch (err) {
     console.log("error, ", err);
-    return false
+    return false;
   }
 }
 
+async function postPayment({email, amount}){
+  const path = "/charge";
+  try {
+    const payment_intent = await api.post(path, {email, amount})
+    console.log('intent: ', payment_intent)
+    return payment_intent;
+  } catch (err) {
+    console.log("error", err);
+    return false
+  }
+};
+
+
 export {
-  processDonation,
   newMember,
   newReminder,
   memberByEmail,
+  processDonation,
   reminderByMember,
   donationByMember,
-  updateDonation
+  updateDonation,
+  postPayment
 };

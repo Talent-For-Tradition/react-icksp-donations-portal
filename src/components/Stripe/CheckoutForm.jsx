@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { donation } from "../../atoms";
+import { donation, member as memberAtom } from "../../atoms";
 import { useRecoilValue } from "recoil";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import axios from "axios";
+import { postPayment } from "../../integrations/donationAPI";
 
 import BillingDetailsFields from "./BillingDetails";
 import Button from "../Common/Button";
@@ -10,6 +10,7 @@ import CheckoutError from "./CheckoutError";
 
 const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
   const donate = useRecoilValue(donation);
+  const member = useRecoilValue(memberAtom);
   const [isProcessing, setProcessingTo] = useState(false);
   const [checkoutError, setCheckoutError] = useState();
 
@@ -41,62 +42,41 @@ const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
 
     const cardElement = elements.getElement("card");
     try {
-      // create a payment intent on the server
-      // client secret of that payment intent.
-      const { data: clientSecret } = await axios.post("/api/payment_intents", {
-        amount: donate.amount * 100
-        // TIP Stripe, amount is lowest common denomination
-        // ie. 1 cent multiplied by 100 is 1 dollar.
-      });
-      console.log(clientSecret);
+      // ask the API to create a payment_intent on the server
+      const { data: clientSecret } = await postPayment({ email: member.email, amount: donate.amount });
 
-      //    // ref to cardElement
-      // stripe.js
-      // create a payment method
-
-      // confirm card payments
-      // payment method id
-      // client_secret
-
+      // create stripe-method
       const paymentMethodReq = await stripe.createPaymentMethod({
         type: "card",
         card: cardElement,
         billing_details: billingDetails
       });
 
+      // check for method errors
       if (paymentMethodReq.error) {
         setCheckoutError(paymentMethodReq.error.message);
         setProcessingTo(false);
         return;
       }
 
+      // connect method to madness
       const { error } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: paymentMethodReq.paymentMethod.id
       });
 
+      // final sanity check
       if (error) {
         setCheckoutError(error.message);
         setProcessingTo(false);
         return;
       }
 
+      // success 
       onSuccessfulCheckout();
     } catch (err) {
       setCheckoutError(err.message);
     }
   };
-
-  // Learning
-  // A common ask/bug that users run into is:
-  // How do you change the color of the card element input text?
-  // How do you change the font-size of the card element input text?
-  // How do you change the placeholder color?
-  // The answer to all of the above is to use the `style` option.
-  // It's common to hear users confused why the card element appears impervious
-  // to all their styles. No matter what classes they add to the parent element
-  // nothing within the card element seems to change. The reason for this is that
-  // the card element is housed within an iframe and:
-  // > styles do not cascade from a parent window down into its iframes
 
   const iframeStyles = {
     base: {
