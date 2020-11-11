@@ -13,33 +13,12 @@ module.exports = {
       directory: "./database/migrations",
       tableName: "knex_migrations"
     }
-    // seeds: {
-    //   directory: "./database/seeds"
-    // }
   },
-  staging: {
-    client: "postgresql",
-    connection: {
-      database: "my_db",
-      user: "username",
-      password: "password"
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: "knex_migrations"
-    }
-  },
-
-  production: {
-    client: "pg",
-    connection: process.env.DATABASE,
-    pool: {
-      min: 2,
-      max: 10
-    },
+  test: {
+    client: "sqlite3",
+    connection: () => ({
+      filename: process.env.SQLITE_FILENAME
+    }),
     migrations: {
       directory: "./database/migrations",
       tableName: "knex_migrations"
