@@ -49,7 +49,7 @@ const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
       const paymentMethodReq = await stripe.createPaymentMethod({
         type: "card",
         card: cardElement,
-        billing_details: billingDetails
+        billing_details: billingDetails,
       });
 
       // check for method errors
@@ -78,27 +78,27 @@ const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
     }
   };
 
-  const iframeStyles = {
-    base: {
-      // color: "#fff",
-      fontSize: "16px",
-      iconColor: "#fff",
-      "::placeholder": {
-        color: "#87bbfd"
-      }
-    },
-    invalid: {
-      iconColor: "#FFC7EE",
-      color: "#FFC7EE"
-    },
-    complete: {
-      iconColor: "#cbf4c9"
-    }
-  };
+  // const iframeStyles = {
+  //   base: {
+  //     color: "#742c20",
+  //     fontSize: "16px",
+  //     iconColor: "#742c20",
+  //     "::placeholder": {
+  //       color: "#233b7b"
+  //     }
+  //   },
+  //   invalid: {
+  //     iconColor: "red",
+  //     color: "red"
+  //   },
+  //   complete: {
+  //     iconColor: "#cbf4c9"
+  //   }
+  // };
 
   const cardElementOpts = {
     iconStyle: "solid",
-    style: iframeStyles,
+    // style: iframeStyles,
     hidePostalCode: true
   };
 
@@ -121,7 +121,7 @@ const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
         <Button
           className="form-submit-button"
           disabled={isProcessing || !stripe}
-          text={isProcessing ? "Processing..." : `Pay $${price}`}
+          text={isProcessing ? "Processing..." : `Donate $${price}`}
         />
       </div>
     </form>

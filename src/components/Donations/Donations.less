@@ -3,7 +3,7 @@
   flex-flow: column;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
+  background-color: @modal-background;
   p {
     background-color: inherit;
   }
@@ -13,7 +13,7 @@
   display: flex;
   width: 85%;
   justify-content: space-between;
-  background-color: #fff;
+  background-color: @modal-background
 }
 
 .Button-donate-blue {
@@ -24,11 +24,11 @@
   padding: 2vmin;
   cursor: pointer;
   margin: 1vmin;
-  background-color: #233b7b;
+  background-color: @global-blue;
   font-family: "Cormorant SC", serif;
   font-size: calc(10px + 1vmin);
   font-weight: bold;
-  color: #e1edfb;
+  color: @global-background;
 }
 
 .Button-donate {
@@ -39,22 +39,22 @@
   padding: 2vmin;
   cursor: pointer;
   margin: 1vmin;
-  color: #233b7b;
-  background-color: #e1edfb;
+  color: @global-blue;
+  background-color: @global-background;
   font-family: "Cormorant SC", serif;
   font-size: calc(10px + 1vmin);
   font-weight: bold;
 }
 
 .Button-donate.active {
-  background: #233b7b;
-  color: #e1edfb;  
+  background: @global-blue;
+  color: @global-background;  
 }
 
 .boxed-text {
-  border: 1px solid #e1edfb;
-  color: #233b7b;
-  background-color: #fff;
+  border: 1px solid @global-background;
+  color: @global-blue;
+  background-color: @modal-background;
   padding: 4vmin;
   margin: 2vmin; 
 }
@@ -68,8 +68,8 @@
   padding: 0 6vmin;
   cursor: pointer;
   margin: 1vmin;
-  color: #233b7b;
-  background-color: #e1edfb;
+  color: @global-blue;
+  background-color: @global-background;
   font-family: "Cormorant SC", serif;
   font-size: calc(10px + 1vmin);
   font-weight: bold;

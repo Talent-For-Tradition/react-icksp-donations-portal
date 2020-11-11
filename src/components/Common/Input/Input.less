@@ -4,20 +4,25 @@
   padding: 2vmin;
   font-family: "Cormorant SC", serif;
   font-size: calc(10px + 1vmin);
-  background-color: white;
+  background-color: @input-background;
   outline: 2px solid white;
   border: none;
 }
 
 .FormInput.Invalid {
-  outline: 2px solid red;
+  outline: 2px solid @input-invalid;
   border: none;
 }
 
 .FormInput.FormHalf {
   width: calc(40% - 2px);
 }
-
+.FormLabel {
+  font-family: "Cormorant SC", serif;
+  font-size: 8pt;
+  // font-weight: bold;
+  margin-left: 4pt;
+}
 //// form submit button.
 html input[type="button"],
 input[type="reset"],
@@ -45,14 +50,14 @@ input[type="submit"]:hover,
 html input[type="button"],
 input[type="reset"],
 input[type="submit"]:focus {
-  background: #233b7b;
-  color: #e1edfb;
+  background: @global-blue;
+  color: @global-background;
 }
 
 html input[type="button"],
 input[type="reset"],
 input[type="submit"]:focus {
-  outline: 1px solid #e1edfb;
+  outline: 1px solid @global-background;
   outline-offset: -1px;
 }
 
