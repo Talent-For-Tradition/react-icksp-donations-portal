@@ -57,6 +57,7 @@ function App() {
           <Route path="/" component={PrayerCard} exact={true} />
         </Switch>
       )}
+      <div className="footerSpace" />
     </div>
   );
 }

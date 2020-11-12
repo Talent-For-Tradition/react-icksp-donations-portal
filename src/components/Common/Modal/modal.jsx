@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDom from 'react-dom';
 
-const Modal = ({ open, children }) => {
+const Modal = ({ open, children, mclasses }) => {
   if (!open) return null;
 
   return ReactDom.createPortal(
     <div className="Overlay">
-      <div className="Modal">{children}</div>
+      <div className={mclasses ? mclasses.modal : "Modal"}>{children}</div>
     </div>, document.getElementById('portal')
   );
 };

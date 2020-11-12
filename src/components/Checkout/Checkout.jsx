@@ -11,7 +11,7 @@ const Checkout = ({ open, close }) => {
   };
   return (
     <>
-      <Modal open={open}>
+      <Modal mclasses={{modal: "ModalStripe"}} open={open}>
         <Layout>
           <CheckoutForm
             price={price.amount}
