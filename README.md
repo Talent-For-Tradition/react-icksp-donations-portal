@@ -13,7 +13,7 @@ clone this repo
 
 install dependencies
 
-    cd react-icksp-payment-portal
+    cd react-icksp-donations-portal
     yarn install
 
 
