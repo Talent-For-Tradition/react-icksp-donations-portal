@@ -1,4 +1,4 @@
-# react-icksp-payment-portal
+# react-icksp-donations-portal
 requires [NodeJS](https://nodejs.org/en/)
 
 
