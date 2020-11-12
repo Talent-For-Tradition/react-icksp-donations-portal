@@ -8,7 +8,7 @@ install/upgrade yarn global binary:
 
 clone this repo
 
-    git clone https://github.com/Talent-For-Tradition/react-icksp-payment-portal
+    git clone https://github.com/Talent-For-Tradition/react-icksp-donations-portal
     
 
 install dependencies
