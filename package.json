@@ -10,29 +10,25 @@
     "@testing-library/react": "^11.1.1",
     "@testing-library/user-event": "^12.2.0",
     "axios": "^0.21.0",
-    "body-parser": "^1.19.0",
     "joi": "^17.3.0",
     "object-path": "^0.11.5",
-    "pug": "^3.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "react-transition-group": "^4.4.1",
     "recoil": "^0.1.2",
-    "stripe": "^8.121.0"
+    "stripe": "^8.121.0",
+    "less": "^3.12.2"
   },
   "scripts": {
     "graph": "npx madge --image src/graph.svg src/index.js",
-    "graph-api": "npx madge --image src/integrations/api/api-code-graph.svg src/integrations/api/index.js",
     "style": "lessc src/index.less src/index.css",
     "start": "yarn style && react-scripts start",
     "build": "yarn style && react-scripts build",
     "run-react-tests": "yarn style && react-scripts test",
     "test": "TEST_ENVIRONMENT=1 yarn run-react-tests",
-    "serve": "npx nodemon src/integrations/api",
-    "knex": "npx knex --cwd src/integrations/api/payments",
-    "develop": "npx concurrently \"yarn serve\" \"yarn start\"",
+    "develop": "npx concurrently \"cd api; npm start\" \"yarn start\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -51,12 +47,6 @@
     ]
   },
   "devDependencies": {
-    "concurrently": "^5.3.0",
-    "cors": "^2.8.5",
-    "helmet": "^4.2.0",
-    "knex": "^0.21.12",
-    "less": "^3.12.2",
-    "nodemon": "^2.0.6",
-    "pg": "^8.4.2"
+    "concurrently": "^5.3.0"
   }
 }

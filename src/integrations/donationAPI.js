@@ -12,7 +12,7 @@ function filterExtra(a, b) {
 }
 const api = new axios.create({
   // preload with api headers & url
-  baseURL: "http://localhost:5000/api",
+  baseURL: process.env.REACT_APP_BASE_URL,
   timeout: 1000,
   headers: { "X-Custom-Header": "foobar" }
 });
