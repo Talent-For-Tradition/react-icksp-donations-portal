@@ -1,50 +1,73 @@
-import React, {useEffect} from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import React, {useState, useEffect, useCallback} from "react";
+import { member } from "../../atoms";
+import { useRecoilState } from "recoil";
 import { useHistory } from "react-router-dom";
 
-import Button from "../Common/Button";
 import Input from "../Common/Input";
 import TitleText from "../Common/TitleText";
 import Select from "../Common/Select";
 
 import schema from "./MobileSchema";
-import { reminder, member } from "../../atoms";
-import { newReminder, reminderByMember } from "../../integrations/donationAPI";
+// import { newReminder, reminderByMember } from "../../integrations/donationAPI";
 
 import { HOURS, TIMEZONES, hourToOption, tzToOption } from "./options";
+import { API } from "aws-amplify";
+import { getUser } from "../../amplifyHelpers";
+import Spinner from "../Spinner";
 
 /**
  * send my daily reminder at...
  */
-const MobileTextForm = () => {
+const MobileTextForm = (props) => {
   // Prayer Card, daily reminder (4)
-  const [state, setState] = useRecoilState(reminder);
-  const {id: member_id} = useRecoilValue(member);
+  const [rState, setRstate] = useRecoilState(member);
+  const [state, setState] = useState({...rState});
+  const [loading, setLoading] = useState(true);
   const history = useHistory();
-  
+  const cbRefresh = useCallback(() => {
+    if (state.phone_number) return
+    getUser().then((memberData) => {
+      console.log(memberData)
+      setState(s => setState({...s, ...memberData}));
+      // get member record from the API.
+      API.get("ickspapi", "/members/username/", {username: memberData.username}).then((res) => {
+        if (res.length > 0) {
+          console.log(res.length)
+          console.log(res[0]);
+          setState({...state, ...res[0]});
+          setLoading(false);
+          setRstate({ ...state });
+        }
+      });
+      // updateFromAuth({email, state, setState});
+    });
+  }, []); // eslint-disable-line
   useEffect(() => {
-    console.log(member_id)
-    reminderByMember(member_id)
-    .then(oldReminder => {
-      if (oldReminder && oldReminder.id) {
-        setState({ ...oldReminder})
-      } else {
-        setState({...state, member_id})
-      }
-    })
-  }, [member_id]) // eslint-disable-line
-
+    // setState({...user})
+    cbRefresh();
+    console.log(state, rState)
+  }, []) // eslint-disable-line
+  
   const handleVerify = async () => {
-    const fields = { ...state };
-    delete fields["id"];
-    delete fields["member_id"];
+    console.log('verifying...')
+    const fields = {};
+    fields["hour"] = state.hour;
+    fields["timezone"] = state.timezone;
+    fields["mobile"] = state.phone_number;
+    console.log(fields)
+    console.log(state)
     const { error } = schema.validate(fields);
     if (error) {
       console.log(error);
     } else {
       console.log("creating new reminder...");
       try {
-        await newReminder({ ...fields, member_id });
+        console.log("API!")
+        console.log("posting...");
+        const result = await API.post("ickspapi", "/members", {
+          body: state
+        });
+        console.log(result);
         history.push("/thankyou");
       } catch (err) {
         console.log(err);
@@ -55,6 +78,24 @@ const MobileTextForm = () => {
     e.preventDefault();
     setState({ ...state, [e.target.name]: e.target.value });
   };
+  if (loading) return (
+    <>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <Spinner />
+      </div>
+    </>
+  )
+  const handleSubmitForm = e => {
+    e.preventDefault();
+    console.log('test');
+    handleVerify();
+  }
   return (
     <>
       <div className="AddressForm">
@@ -62,13 +103,13 @@ const MobileTextForm = () => {
           id="mobileForm"
           className="BodyTextForm"
           style={{ marginTop: "3rem" }}
-          onSubmit={(e) => e.preventDefault() && handleVerify()}
+          onSubmit={handleSubmitForm}
         >
           <Input
-            name="mobile"
+            name="phone_number"
             placeholder="Mobile number"
             onChange={handleChange}
-            value={state.mobile}
+            value={state.phone_number}
           />
           <TitleText>send my daily reminder at</TitleText>
           <div className="FormDouble">
@@ -90,7 +131,7 @@ const MobileTextForm = () => {
               {TIMEZONES.map(tzToOption)}
             </Select>
           </div>
-          <Button text="SUBMIT" type="button" onClick={handleVerify} />
+          <Input type="submit" className="Button-Red" onChange={handleChange} />
         </form>
       </div>
     </>

@@ -1,11 +1,11 @@
 import React from "react";
 import Input from "../Common/Input";
 import Button from "../Common/Button";
-import { donation } from "../../atoms";
+import { member } from "../../atoms";
 import { useRecoilState } from "recoil";
 
 const OtherAmount = ({ close, processMonthlyDonation }) => {
-  const [donate, setDonate] = useRecoilState(donation);
+  const [donate, setDonate] = useRecoilState(member);
   const setAmount = (e) => setDonate({ ...donate, amount: Number(e.target.value) });
   return (
     <>
@@ -24,7 +24,7 @@ const OtherAmount = ({ close, processMonthlyDonation }) => {
           <Button
             name="close"
             onClick={() => {
-              processMonthlyDonation();
+              processMonthlyDonation(donate.amount);
               close();
             }}
             className="Button-Red"

@@ -1,9 +1,18 @@
 import { atom } from "recoil";
 
+// amplify / cognito user pool
+const user = atom({
+  key: "user",
+  default: {
+    id: null,
+    user: "", // stringify the user object and store.
+  }
+});
+
+// dynamo 
 const member = atom({
   key: "member",
   default: {
-    id: null,
     fullname: "",
     country: "",
     addr1: "",
@@ -11,15 +20,28 @@ const member = atom({
     city: "",
     zip: "",
     state: "",
-    email: ""
+    email: "",
+    username: "",
+    phone_number: "",
+    hour: "10:00AM", timezone: "EST" ,
+    donation: false,
+    recurring: false,
+    amount: 0,
+    day: 0, // 1-7 (monday - sunday) * optional
+    week: 0, // 1-4 (first, second, third, or last) * optional
+    email_verified: false,
+    phone_number_verified: false,
+    sub: ""
   }
 });
 
+// reminder as stringified obj
 const reminder = atom({
   key: "reminder",
   default: { id: null, mobile: "", hour: "10:00AM", timezone: "EST" }
 });
 
+// donation as stringified obj
 const donation = atom({
   key: "donation",
   default: {
@@ -39,4 +61,4 @@ const donation = atom({
 //   default: { redirect: "/where" }
 // })
 
-export { member, reminder, donation };
+export { member, user, reminder, donation };

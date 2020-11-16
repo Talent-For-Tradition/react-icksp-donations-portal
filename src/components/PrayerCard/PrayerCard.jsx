@@ -3,9 +3,9 @@ import { useHistory } from "react-router-dom";
 import TitleText from "../Common/TitleText";
 import BodyText from "../Common/BodyText";
 import Button from "../Common/Button";
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 const PrayWithUs = () => {
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
+  // const { isAuthenticated, loginWithRedirect } = useAuth0();
   // Prayer Card (1)
   const history = useHistory();
   return (
@@ -27,7 +27,12 @@ const PrayWithUs = () => {
           mission.
         </p>
         <p>Will you pray the Memorare with us daily?</p>
-        {isAuthenticated ? (
+        <Button
+            text="YES, PLEASE SEND ME MY FIRST PRAYER CARD!"
+            onClick={() => history.push("/where")}
+          />
+
+        {/* {isAuthenticated ? (
           <Button
             text="YES, PLEASE SEND ME MY FIRST PRAYER CARD!"
             onClick={() => history.push("/where")}
@@ -35,9 +40,9 @@ const PrayWithUs = () => {
         ) : (
           <Button
             text="YES, PLEASE SEND ME MY FIRST PRAYER CARD!"
-            onClick={() => loginWithRedirect(['redirect_uri="/where'])}
+            onClick={() => loginWithRedirect([`redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`])}
           />
-        )}
+        )} */}
       </BodyText>
     </div>
   );

@@ -1,10 +1,10 @@
 import React from "react";
 import { CheckoutForm, Layout } from "../Stripe";
 import Modal from "../Common/Modal";
-import { donation } from "../../atoms";
+import { member } from "../../atoms";
 import { useRecoilValue } from "recoil";
 const Checkout = ({ open, close }) => {
-  const price = useRecoilValue(donation);
+  const donation = useRecoilValue(member);
   const handleSuccessfulCheckout = () => {
     console.log("hooray! success checkout!");
     close();
@@ -14,7 +14,7 @@ const Checkout = ({ open, close }) => {
       <Modal mclasses={{modal: "ModalStripe"}} open={open}>
         <Layout>
           <CheckoutForm
-            price={price.amount}
+            price={donation.amount}
             onSuccessfulCheckout={handleSuccessfulCheckout}
           />
         </Layout>

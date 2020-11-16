@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { member } from "../../atoms";
+import { useRecoilState } from "recoil";
 import { CSSTransition } from "react-transition-group";
 
 import TitleText from "../Common/TitleText";
@@ -7,14 +9,34 @@ import Modal from "../Common/Modal";
 import Select from "../Common/Select";
 import Reminder from "../Reminder";
 import addressSchema from "./AddressSchema";
-import { useRecoilState } from "recoil";
-import { member } from "../../atoms";
-import { newMember, memberByEmail } from "../../integrations/donationAPI";
+import Spinner from "../Spinner";
+// import { newMember, memberByEmail } from "../../integrations/donationAPI";
 
 import Joi from "joi";
 
 import { STATES } from "./options";
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
+import { API } from "aws-amplify";
+import { unchecked, getUser } from "../../amplifyHelpers";
+// async function updateFromAuth({email, state, setState}) {
+//   const result = await memberByEmail(email);
+//   let update = {};
+//   update["email"] = result.email ? result.email : email;
+//   // if (!state.fullname) update["fullname"] = name;
+//   if (!state.email) update["email"] = email;
+//   // exampleCall();
+//   console.log(result);
+//   if (result.fullname) update["fullname"] = result.fullname;
+//   update["id"] = result.id;
+//   update["addr1"] = result.addr1;
+//   update["addr2"] = result.addr2 ? result.addr2 : " ";
+//   update["city"] = result.city;
+//   update["country"] = result.country;
+//   update["state"] = result.state;
+//   update["zip"] = result.zip;
+//   console.log("update: ", update);
+//   setState({ ...update });
+// };
 
 /**
  * Where should we send
@@ -22,45 +44,43 @@ import { useAuth0 } from "@auth0/auth0-react";
  */
 const AddressForm = () => {
   const [open, setOpen] = useState(false);
-  const [state, setState] = useRecoilState(member);
+  const [rState, setRstate] = useRecoilState(member);
+  const [state, setState] = useState({ ...rState });
+  const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-  const { user } = useAuth0();
 
-  const cbUpdate = useCallback(() => {
-    if (!user) return;
-    const { name, email } = user;
-    const updateFromAuth = async () => {
-      const result = await memberByEmail(email);
-      let update = {};
-      if (!state.fullname) update["fullname"] = name;
-      if (!state.email) update["email"] = email;
-      // exampleCall();
-      console.log(result);
-      if (result.fullname) update["fullname"] = result.fullname;
-      update["id"] = result.id;
-      update["email"] = result.email ? result.email:email;
-      update["addr1"] = result.addr1;
-      update["addr2"] = result.addr2 ? result.addr2: " ";
-      update["city"] = result.city;
-      update["country"] = result.country;
-      update["state"] = result.state;
-      update["zip"] = result.zip;
-      console.log("update: ", update);
-      setState({ ...update });
-    };
-    updateFromAuth();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // const { user } = useAuth0();
+  const cbRefresh = useCallback(() => {
+    getUser().then((memberData) => {
+      console.log(memberData)
+      setState(s => setState({...s, ...memberData}));
+      // get member record from the API.
+      API.get("ickspapi", "/members/username/", {username: memberData.username}).then((res) => {
+        if (res.length > 0) {
+          console.log(res.length)
+          console.log(res[0]);
+          setState({...state, ...res[0]});
+          setLoading(false);
+          setRstate({ ...state });
+        }
+      });
+      // updateFromAuth({email, state, setState});
+    });
+  }, []); // eslint-disable-line
 
   useEffect(() => {
-    cbUpdate();
-  }, [cbUpdate]);
+    setState(rState);
+    if (state?.username?.length > 0) return;
+    setState({ ...state, username: "guest" });
+    cbRefresh();
+  }, []); // eslint-disable-line
 
   const submitForm = async () => {
-    // after verification
-    // update the backend
-    const id = await newMember(state);
-    console.log(id);
-    setState({...state, id });
+    console.log("posting...");
+    const result = await API.post("ickspapi", "/members", {
+      body: state
+    });
+    console.log(result);
     setOpen(true);
   };
   /**
@@ -78,20 +98,22 @@ const AddressForm = () => {
   const handleChange = (e) => {
     e.preventDefault();
     const [name, value] = [[e.target.name], e.target.value];
-    if (value.name !== 'addr2') {
+    if (!unchecked.filter((i) => i === value.name).length > 0) {
       const error = validateProperty({ name, value });
       setErrorMessage({ ...errorMessage, [name]: error });
     }
     setState({ ...state, [name]: value });
+    return;
   };
-
+  //c76f8d9fa715bf1db512689a89e4a8c8f1a7bd48737b0ba68868210e2db9fcdf
   const handleVerify = (e) => {
     // verify state and send to callback
     e.preventDefault();
     console.log("submitted");
     const schema = Joi.object(addressSchema);
-    const fields = { ...state };
-    delete fields["id"];
+    const fields = {};
+    Object.keys(addressSchema).forEach((name) => (fields[name] = state[name]));
+    // delete fields["id"];
     delete fields["addr2"];
     const { error } = schema.validate(fields, { abortEarly: false });
     if (!error) {
@@ -107,7 +129,19 @@ const AddressForm = () => {
   };
 
   const err = (key) => (errorMessage ? errorMessage[key] : false);
-
+  if (loading) return (
+    <>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <Spinner />
+      </div>
+    </>
+  )
   return (
     <>
       <CSSTransition in={open} timeout={300} classNames="alert" unmountOnExit>

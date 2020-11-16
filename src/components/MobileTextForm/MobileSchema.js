@@ -6,7 +6,7 @@ const schema = Joi.object({
     .max(7)
     .required(),
   mobile: Joi.string()
-    .alphanum()
+    .regex(/^[a-zA-Z0-9+]*$/)
     .min(10)
     .max(42)
     .required(),

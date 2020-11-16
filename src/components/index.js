@@ -13,6 +13,7 @@ import ThankYou from "./ThankYou";
 import Donations from "./Donations";
 import { Loading, AuthButton } from "./Authority";
 import Checkout from "./Checkout";
+import Spinner from "./Spinner";
 export {
   TitleText,
   BodyText,
@@ -29,5 +30,6 @@ export {
   OtherAmount,
   Loading,
   AuthButton,
-  Checkout
+  Checkout,
+  Spinner
 };
