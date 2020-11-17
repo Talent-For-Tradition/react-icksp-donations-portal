@@ -10,13 +10,13 @@
     "env": {
       "Type": "String"
     },
-    "storageickspdbName": {
+    "storagedynamo79380ec1Name": {
       "Type": "String",
-      "Default": "storageickspdbName"
+      "Default": "storagedynamo79380ec1Name"
     },
-    "storageickspdbArn": {
+    "storagedynamo79380ec1Arn": {
       "Type": "String",
-      "Default": "storageickspdbArn"
+      "Default": "storagedynamo79380ec1Arn"
     }
   },
   "Conditions": {
@@ -41,12 +41,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "membersFunction",
+            "reactickspdonationsp305edf9d",
             {
               "Fn::Join": [
                 "",
                 [
-                  "membersFunction",
+                  "reactickspdonationsp305edf9d",
                   "-",
                   {
                     "Ref": "env"
@@ -63,6 +63,12 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
+            },
+            "STORAGE_DYNAMO79380EC1_NAME": {
+              "Ref": "storagedynamo79380ec1Name"
+            },
+            "STORAGE_DYNAMO79380EC1_ARN": {
+              "Ref": "storagedynamo79380ec1Arn"
             }
           }
         },
@@ -76,8 +82,8 @@
         "Layers": [],
         "Timeout": "25",
         "Code": {
-          "S3Bucket": "amplify-amplifyicksp-dev-161704-deployment",
-          "S3Key": "amplify-builds/membersFunction-5a2f516542653449446d-build.zip"
+          "S3Bucket": "amplify-reactickspdonationsp-dev-45057-deployment",
+          "S3Key": "amplify-builds/reactickspdonationsp305edf9d-5a6d767a777652757a39-build.zip"
         }
       }
     },
@@ -87,12 +93,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "amplifyickspLambdaRolea7cca3f7",
+            "reactickspdonationspLambdaRolee6018fab",
             {
               "Fn::Join": [
                 "",
                 [
-                  "amplifyickspLambdaRolea7cca3f7",
+                  "reactickspdonationspLambdaRolee6018fab",
                   "-",
                   {
                     "Ref": "env"
@@ -172,14 +178,66 @@
               ],
               "Resource": [
                 {
-                  "Ref": "storageickspdbArn"
+                  "Ref": "storagedynamo79380ec1Arn"
                 },
                 {
                   "Fn::Join": [
                     "/",
                     [
                       {
-                        "Ref": "storageickspdbArn"
+                        "Ref": "storagedynamo79380ec1Arn"
+                      },
+                      "index/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "AmplifyResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "amplify-lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Put*",
+                "dynamodb:Create*",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:Get*",
+                "dynamodb:BatchGetItem",
+                "dynamodb:List*",
+                "dynamodb:Describe*",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:Update*",
+                "dynamodb:RestoreTable*",
+                "dynamodb:Delete*"
+              ],
+              "Resource": [
+                {
+                  "Ref": "storagedynamo79380ec1Arn"
+                },
+                {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      {
+                        "Ref": "storagedynamo79380ec1Arn"
                       },
                       "index/*"
                     ]

@@ -14,15 +14,15 @@
         },
     
     
-          "functionmembersFunctionName": {
+          "functionreactickspdonationsp305edf9dName": {
             "Type": "String",
-            "Default": "functionmembersFunctionName"
+            "Default": "functionreactickspdonationsp305edf9dName"
           },
         
           
-          "functionmembersFunctionArn": {
+          "functionreactickspdonationsp305edf9dArn": {
             "Type": "String",
-            "Default": "functionmembersFunctionArn"
+            "Default": "functionreactickspdonationsp305edf9dArn"
           }
         
           
@@ -41,13 +41,13 @@
     },
     "Resources": {
         
-        "PolicyAPIGWickspapiauth": {
+        "PolicyAPIGWapic825e45aauth": {
             "DependsOn": [
-              "ickspapi"
+              "apic825e45a"
             ],
             "Type": "AWS::IAM::Policy",
             "Properties": {
-              "PolicyName": "PolicyAPIGWickspapiauth",
+              "PolicyName": "PolicyAPIGWapic825e45aauth",
               "Roles": [
                 {"Ref": "authRoleName"}
               ],
@@ -77,7 +77,7 @@
                             },
                             ":",
                             {
-                              "Ref": "ickspapi"
+                              "Ref": "apic825e45a"
                             },
                             "/",
                             {
@@ -108,7 +108,7 @@
                             },
                             ":",
                             {
-                              "Ref": "ickspapi"
+                              "Ref": "apic825e45a"
                             },
                             "/",
                             {
@@ -143,7 +143,7 @@
                             },
                             ":",
                             {
-                              "Ref": "ickspapi"
+                              "Ref": "apic825e45a"
                             },
                             "/",
                             {
@@ -174,7 +174,7 @@
                             },
                             ":",
                             {
-                              "Ref": "ickspapi"
+                              "Ref": "apic825e45a"
                             },
                             "/",
                             {
@@ -209,7 +209,7 @@
                             },
                             ":",
                             {
-                              "Ref": "ickspapi"
+                              "Ref": "apic825e45a"
                             },
                             "/",
                             {
@@ -240,7 +240,7 @@
                             },
                             ":",
                             {
-                              "Ref": "ickspapi"
+                              "Ref": "apic825e45a"
                             },
                             "/",
                             {
@@ -275,7 +275,7 @@
                             },
                             ":",
                             {
-                              "Ref": "ickspapi"
+                              "Ref": "apic825e45a"
                             },
                             "/",
                             {
@@ -306,7 +306,7 @@
                             },
                             ":",
                             {
-                              "Ref": "ickspapi"
+                              "Ref": "apic825e45a"
                             },
                             "/",
                             {
@@ -341,7 +341,7 @@
                             },
                             ":",
                             {
-                              "Ref": "ickspapi"
+                              "Ref": "apic825e45a"
                             },
                             "/",
                             {
@@ -372,7 +372,7 @@
                             },
                             ":",
                             {
-                              "Ref": "ickspapi"
+                              "Ref": "apic825e45a"
                             },
                             "/",
                             {
@@ -405,16 +405,16 @@
         
         
         
-      "ickspapi": {
+      "apic825e45a": {
         "Type": "AWS::ApiGateway::RestApi",
         "Properties": {
           "Description": "",
-          "Name": "ickspapi",
+          "Name": "apic825e45a",
           "Body": {
             "swagger": "2.0",
             "info": {
               "version": "2018-05-24T17:52:00Z",
-              "title": "ickspapi"
+              "title": "apic825e45a"
             },
             "host": {
                 "Fn::Join": [
@@ -542,7 +542,7 @@
                             
                             {
                                 
-                                "Ref": "functionmembersFunctionArn"
+                                "Ref": "functionreactickspdonationsp305edf9dArn"
                             },
                             
                             "/invocations"
@@ -647,7 +647,7 @@
                           
                           {
                             
-                            "Ref": "functionmembersFunctionArn"
+                            "Ref": "functionreactickspdonationsp305edf9dArn"
                           },
                           
                           "/invocations"
@@ -704,12 +704,12 @@
                   
         
         
-        "functionmembersFunctionPermissionickspapi": {
+        "functionreactickspdonationsp305edf9dPermissionapic825e45a": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
                 "FunctionName": 
                     {
-                        "Ref":  "functionmembersFunctionName"
+                        "Ref":  "functionreactickspdonationsp305edf9dName"
                     },
                     
                     "Action": "lambda:InvokeFunction",
@@ -728,7 +728,7 @@
                             },
                             ":",
                             {
-                                "Ref": "ickspapi"
+                                "Ref": "apic825e45a"
                             },
                             "/*/*/*"
                         ]
@@ -739,7 +739,7 @@
         
         
         
-      "DeploymentAPIGWickspapi": {
+      "DeploymentAPIGWapic825e45a": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",
@@ -753,7 +753,7 @@
             ]
           },
           "RestApiId": {
-            "Ref": "ickspapi"
+            "Ref": "apic825e45a"
           }
         }
       }
@@ -761,15 +761,15 @@
     "Outputs": {
         "RootUrl": {
             "Description": "Root URL of the API gateway",
-            "Value": {"Fn::Join": ["", ["https://", {"Ref": "ickspapi"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
+            "Value": {"Fn::Join": ["", ["https://", {"Ref": "apic825e45a"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
         },
         "ApiName": {
           "Description": "API Friendly name",
-          "Value": "ickspapi"
+          "Value": "apic825e45a"
         },
         "ApiId": {
           "Description": "API ID (prefix of API URL)",
-          "Value": {"Ref": "ickspapi"}
+          "Value": {"Ref": "apic825e45a"}
         }
     }
   }

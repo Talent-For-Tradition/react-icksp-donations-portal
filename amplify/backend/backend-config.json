@@ -1,6 +1,6 @@
 {
   "auth": {
-    "amplifyicksp603f4b09": {
+    "reactickspdonationsp93b43cfe": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -8,20 +8,20 @@
     }
   },
   "storage": {
-    "ickspdb": {
+    "dynamo79380ec1": {
       "service": "DynamoDB",
       "providerPlugin": "awscloudformation"
     }
   },
   "function": {
-    "membersFunction": {
+    "reactickspdonationsp305edf9d": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
       "dependsOn": [
         {
           "category": "storage",
-          "resourceName": "ickspdb",
+          "resourceName": "dynamo79380ec1",
           "attributes": [
             "Name",
             "Arn"
@@ -30,18 +30,26 @@
             "Name": "TABLE_NAME",
             "Arn": "TABLE_ARN"
           }
+        },
+        {
+          "category": "storage",
+          "resourceName": "dynamo79380ec1",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
         }
       ]
     }
   },
   "api": {
-    "ickspapi": {
+    "apic825e45a": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "membersFunction",
+          "resourceName": "reactickspdonationsp305edf9d",
           "attributes": [
             "Name",
             "Arn"

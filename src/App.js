@@ -10,7 +10,8 @@ import {
   MobileTextForm,
   ThankYou,
   Donations,
-  Checkout
+  Checkout,
+  // Button
 } from "./components";
 import Profile from "./components/Profile";
 
@@ -19,7 +20,6 @@ import awsconfig from "./aws-exports";
 import { getUser } from "./amplifyHelpers";
 // load settings
 Amplify.configure(awsconfig);
-
 
 function App() {
   const [state, setState] = useState({});
@@ -34,7 +34,7 @@ function App() {
           });
           break;
         case "signOut":
-          setState(null);
+          setState({});
           break;
         case "signIn_failure":
         case "cognitoHostedUI_failure":
@@ -48,7 +48,6 @@ function App() {
       setState({ ...state, ...userData });
     });
   }, []); // eslint-disable-line
-
   return (
     <div className="App">
       {state?.username ? <AmplifySignOut /> : ""}
@@ -75,6 +74,7 @@ function App() {
         <Route path="/" component={PrayerCard} exact={true} />
       </Switch>
       <div className="footerSpace" />
+
     </div>
   );
 }

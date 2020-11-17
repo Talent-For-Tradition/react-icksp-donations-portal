@@ -25,7 +25,7 @@ const Donations = () => {
       console.log(memberData);
       setState((s) => setState({ ...s, ...memberData }));
       // get member record from the API.
-      API.get("ickspapi", "/members/username/", {
+      API.get("apic825e45a", "/members/username/", {
         username: memberData.username
       }).then((res) => {
         if (res.length > 0) {

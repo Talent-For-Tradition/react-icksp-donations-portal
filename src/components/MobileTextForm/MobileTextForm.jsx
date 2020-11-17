@@ -24,13 +24,13 @@ const MobileTextForm = (props) => {
   const [state, setState] = useState({...rState});
   const [loading, setLoading] = useState(true);
   const history = useHistory();
+
   const cbRefresh = useCallback(() => {
-    if (state.phone_number) return
     getUser().then((memberData) => {
       console.log(memberData)
       setState(s => setState({...s, ...memberData}));
       // get member record from the API.
-      API.get("ickspapi", "/members/username/", {username: memberData.username}).then((res) => {
+      API.get("apic825e45a", "/members/username/", {username: memberData.username}).then((res) => {
         if (res.length > 0) {
           console.log(res.length)
           console.log(res[0]);
@@ -43,9 +43,10 @@ const MobileTextForm = (props) => {
     });
   }, []); // eslint-disable-line
   useEffect(() => {
-    // setState({...user})
-    cbRefresh();
-    console.log(state, rState)
+    if (!state.phone_number){
+      cbRefresh();
+    }
+    setLoading(false)
   }, []) // eslint-disable-line
   
   const handleVerify = async () => {
@@ -60,11 +61,13 @@ const MobileTextForm = (props) => {
     if (error) {
       console.log(error);
     } else {
+      console.log('updating recoil state')
+      setRstate({...rState, ...state})
       console.log("creating new reminder...");
       try {
         console.log("API!")
         console.log("posting...");
-        const result = await API.post("ickspapi", "/members", {
+        const result = await API.post("apic825e45a", "/members", {
           body: state
         });
         console.log(result);

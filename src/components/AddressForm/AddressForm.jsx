@@ -55,14 +55,15 @@ const AddressForm = () => {
       console.log(memberData)
       setState(s => setState({...s, ...memberData}));
       // get member record from the API.
-      API.get("ickspapi", "/members/username/", {username: memberData.username}).then((res) => {
+      API.get("apic825e45a", "/members/username/", {username: memberData.username}).then((res) => {
+        console.log('ok')
         if (res.length > 0) {
           console.log(res.length)
           console.log(res[0]);
           setState({...state, ...res[0]});
-          setLoading(false);
           setRstate({ ...state });
         }
+        setLoading(false);
       });
       // updateFromAuth({email, state, setState});
     });
@@ -76,13 +77,25 @@ const AddressForm = () => {
   }, []); // eslint-disable-line
 
   const submitForm = async () => {
+    console.log('updating recoil state')
+    setRstate({...rState, ...state})
+
     console.log("posting...");
-    const result = await API.post("ickspapi", "/members", {
+    const result = await API.post("apic825e45a", "/members", {
       body: state
     });
     console.log(result);
     setOpen(true);
   };
+  // const submitTest = async () => {
+  //   console.log("posting...");
+  //   const result = await API.post("apic825e45a", "/members/test/2", {
+  //     username: state.username,
+  //     email: state.email,
+  //   })
+  //   console.log(result)
+  // };
+
   /**
    * validate a single property.
    * @param {String} name element name
@@ -222,6 +235,10 @@ const AddressForm = () => {
           />
           <Input type="submit" className="Button-Red" onChange={handleChange} />
         </form>
+        {/* <button
+        text="test"
+        onClick={submitTest}
+      >test</button> */}
       </div>
     </>
   );

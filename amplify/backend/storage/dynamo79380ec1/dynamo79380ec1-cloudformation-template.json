@@ -12,6 +12,13 @@
             "Type": "String"
         },
         
+        "sortKeyName": {
+            "Type": "String"
+        },
+        "sortKeyType": {
+            "Type": "String"
+        },
+        
         "tableName": {
             "Type": "String"
         }
@@ -33,7 +40,22 @@
                 "AttributeDefinitions": [
                   
                   {
+                      "AttributeName": "username",
+                      "AttributeType": "S"
+                  }  , 
+                  
+                  {
                       "AttributeName": "email",
+                      "AttributeType": "S"
+                  }  , 
+                  
+                  {
+                      "AttributeName": "city",
+                      "AttributeType": "S"
+                  }  , 
+                  
+                  {
+                      "AttributeName": "state",
                       "AttributeType": "S"
                   } 
                   
@@ -41,8 +63,13 @@
                 "KeySchema": [
                   
                   {
-                    "AttributeName": "email",
+                    "AttributeName": "username",
                     "KeyType": "HASH"
+                  }  , 
+                  
+                  {
+                    "AttributeName": "email",
+                    "KeyType": "RANGE"
                   } 
                   
                 ],
@@ -77,6 +104,34 @@
                     ]
                 }
                 
+                ,"GlobalSecondaryIndexes": [
+                  
+                    {
+                        "IndexName": "city",
+                        "KeySchema": [
+                            
+                            {
+                                "AttributeName": "city",
+                                "KeyType": "HASH"
+                            }  , 
+                            
+                            {
+                                "AttributeName": "state",
+                                "KeyType": "RANGE"
+                            } 
+                            
+                        ],
+                        "Projection": {
+                            "ProjectionType": "ALL"
+                        },
+                        "ProvisionedThroughput": {
+                            "ReadCapacityUnits": "5",
+                            "WriteCapacityUnits": "5"
+                        }
+                    } 
+                  
+                ]
+                
             }
         }
     },
@@ -110,6 +165,17 @@
         "PartitionKeyType": {
             "Value": {
                 "Ref": "partitionKeyType"
+            }
+        },
+        
+        "SortKeyName": {
+            "Value": {
+                "Ref": "sortKeyName"
+            }
+        },
+        "SortKeyType": {
+            "Value": {
+                "Ref": "sortKeyType"
             }
         },
         

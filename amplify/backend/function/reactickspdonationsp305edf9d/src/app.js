@@ -6,7 +6,12 @@ or in the "license" file accompanying this file. This file is distributed on an 
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-
+/* Amplify Params - DO NOT EDIT
+	ENV
+	REGION
+	STORAGE_DYNAMO79380EC1_ARN
+	STORAGE_DYNAMO79380EC1_NAME
+Amplify Params - DO NOT EDIT */
 
 const AWS = require('aws-sdk')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
@@ -17,16 +22,16 @@ AWS.config.update({ region: process.env.TABLE_REGION });
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
-let tableName = "members";
+let tableName = "icksp-api";
 if(process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + '-' + process.env.ENV;
 }
 
-const userIdPresent = true; // TODO: update in case is required to use that definition
-const partitionKeyName = "email";
+const userIdPresent = false; // TODO: update in case is required to use that definition
+const partitionKeyName = "username";
 const partitionKeyType = "S";
-const sortKeyName = "";
-const sortKeyType = "";
+const sortKeyName = "email";
+const sortKeyType = "S";
 const hasSortKey = sortKeyName !== "";
 const path = "/members";
 const UNAUTH = 'UNAUTH';

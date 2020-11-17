@@ -2,7 +2,7 @@
     "paths": [
         {
             "name": "/members",
-            "lambdaFunction": "membersFunction",
+            "lambdaFunction": "reactickspdonationsp305edf9d",
             "privacy": {
                 "private": true,
                 "auth": [
@@ -16,23 +16,23 @@
             "policyResourceName": "/members"
         }
     ],
-    "resourceName": "ickspapi",
-    "apiName": "ickspapi",
+    "resourceName": "apic825e45a",
+    "apiName": "apic825e45a",
     "functionArns": [
         {
-            "lambdaFunction": "membersFunction"
+            "lambdaFunction": "reactickspdonationsp305edf9d"
         }
     ],
     "privacy": {
         "auth": 1,
         "unauth": 0,
-        "authRoleName": "amplify-amplifyicksp-dev-161704-authRole",
-        "unAuthRoleName": "amplify-amplifyicksp-dev-161704-unauthRole"
+        "authRoleName": "amplify-reactickspdonationsp-dev-45057-authRole",
+        "unAuthRoleName": "amplify-reactickspdonationsp-dev-45057-unauthRole"
     },
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "membersFunction",
+            "resourceName": "reactickspdonationsp305edf9d",
             "attributes": [
                 "Name",
                 "Arn"
