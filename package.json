@@ -19,7 +19,7 @@
     "react-transition-group": "^4.4.1",
     "recoil": "^0.1.2",
     "stripe": "^8.121.0",
-    "less": "^3.12.2"
+    "less": "^4.1.0"
   },
   "scripts": {
     "graph": "npx madge --image src/graph.svg src/index.js",
